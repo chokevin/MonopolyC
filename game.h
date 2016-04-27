@@ -21,7 +21,8 @@ public:
     void buyhouse();
     void sellhouse();
     void moveplayer();
-
+    bool buyproperty();
+    void auctionproperty();
     
 private: 
     vector<Player> players;
@@ -30,5 +31,6 @@ private:
     int dice1;
     int dice2; 
     int counter;
+    
 };
 

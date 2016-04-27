@@ -17,7 +17,9 @@ public:
     int getRent();
     int getHouse();
     int getOwner();
+    int getPrice();
     
+    void editOwner(int Owner);
     /* the initializing of properties */
     void init(int ID, int Price, int Rent, string Name);
 

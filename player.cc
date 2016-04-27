@@ -48,6 +48,10 @@ void Player::addCash(int addedcash){
     cash += addedcash;
 }
 
+void Player::minusCash(int minuscash){
+    cash -= minuscash;
+}
+
 void Player::editPosition(int Position){
     position += Position;
     if(position > 39){

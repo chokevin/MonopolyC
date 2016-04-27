@@ -35,6 +35,7 @@ public:
     void editCash(int Cash);
     void editPosition(int Position);
     void addCash(int addedcash);
+    void minusCash(int minuscash);
 
    
 

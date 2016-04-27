@@ -38,6 +38,14 @@ int Property::getOwner(){
     return owner;
 }
 
+int Property::getPrice(){
+    return price;
+}
+
+void Property::editOwner(int Owner){
+    owner = Owner;
+}
+
 void Property::init(int ID, int Price, int Rent, string Name){
     name = Name;
     id = ID;
