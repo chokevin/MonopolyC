@@ -3,12 +3,10 @@
 #include <vector>
 #include "player.h"
 
-Player::Player(std::string Name, int Number, int Cash, int Position){
-    std::cout << "The object is created" << std::endl;
-    name = Name;
-    number = Number;
-    cash = Cash;
-    position = Position;
+using namespace std;
+
+Player::Player(){
+
 }
 
 Player::~Player(){
@@ -18,7 +16,7 @@ Player::~Player(){
 
 
 
-std::string Player::getName(){
+string Player::getName(){
     return name;
 }
 
@@ -44,6 +42,19 @@ void Player::editNumber(int Number){
 
 void Player::editCash(int Cash){
     cash = Cash;
+}
+
+void Player::addCash(int addedcash){
+    cash += addedcash;
+}
+
+void Player::editPosition(int Position){
+    position += Position;
+    if(position > 39){
+       position = position % 40; 
+       addCash(200);
+    }
+    
 }
     
 void Player::init_to_empty(){

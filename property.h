@@ -20,6 +20,7 @@ public:
     
     /* the initializing of properties */
     void init(int ID, int Price, int Rent, string Name);
+
 private:
     string name;
     int id;
@@ -28,6 +29,5 @@ private:
     int house;
     int owner;
     bool monopoly;
-
 
 };

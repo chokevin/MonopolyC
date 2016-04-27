@@ -2,18 +2,24 @@
 #include <vector>
 #include <string>
 #include <ctime>
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+#include <unistd.h>
 #include "game.h"
+#include "property.h"
+#include "player.h"
+
 using namespace std;
 
 #define MAXSIZE 40 
 
-void Game :: init_game(){
-
+void Game::init_game(){
+	board.resize(MAXSIZE);
     cout << "Initializing Game" << endl;
     
     int numplayers;
-    
-    Property board[MAXSIZE];
+
     // ID 1 = Property
     // ID 2 = Railroad
     // ID 3 = Utility
@@ -24,7 +30,7 @@ void Game :: init_game(){
     // ID 8 = Community Chest
     // ID 9 = Tax
     // ID 10 = Go to Jail
-    
+
     board[0].init(4, 0, 0, "Go");
     board[1].init(1, 60, 2, "Mediterranean Ave"); 
     board[2].init(8, 0, 0, "Community Chest");
@@ -71,23 +77,95 @@ void Game :: init_game(){
     cout << "How many players will be playing? (1-4 players):";
     cin >> numplayers;
     players.resize(numplayers);
-    
-    while(1)
-    {
-        for //for each player
-        //roll dice
-        //trade prop
-        //buy/sell houses
+    for(int i = 0; i < numplayers; i++){
+    	players[i].editCash(1500);
     }
     
+    while(1){
+        menu();
+    }
     
 }
-  
-int Game :: roll_dice(){
+ 
+void Game::menu(){
+    char Action;
+    int n = (turn%players.size());
+    cout << "\033[2J\033[1;1H";
+    cout << "It is Player " << (turn%players.size())+1 << "'s turn" << endl;
+    cout << "You have $" << players[n].getCash() << " at your disposal" << endl; 
+    cout << "You are at position " << players[n].getPosition() << " which is " << board[players[n].getPosition()].getName() << endl;
+    cout << "---------------------------------------------------------------" << endl; 
+    cout << "What actions would you like to take?" << endl;
+   	cout << "(R)oll the dice" << endl;	
+	cout << "(T)rade a property" << endl;    
+	cout << "(B)uy a house" << endl;    
+	cout << "(S)ell a house" << endl;    	
+	cout << "(Q)uit" << endl;
+	cin >> Action;
+	selection(Action);
+}
+
+
+void Game::selection(char Action){
+	 while(true){
+        switch(Action){
+            case 'r':
+                cout << "Rolling the Dice" << endl;
+                moveplayer();
+              	menu();
+                break;
+            case 't':
+                cout << "Trading a Property" << endl;
+                init_trade();
+                menu();
+                break;
+            case 'b':
+                cout << "Buying a House" << endl;
+                buyhouse();
+                menu();
+                break;
+            case 's': 
+                cout << "Selling a House" << endl;
+                sellhouse();
+                menu();
+                break;
+            case 'q':
+                exit(1);
+                break;
+            default : 
+                cin >> Action;
+                break;
+        }
+     }
+
+}
+
+
+void Game::moveplayer(){
+	int move;
+	move = roll_dice();
+    players[(turn%players.size())].editPosition(move);
+    turn++;
+}
+
+void Game::init_trade(){
+	cout << players[(turn%players.size())].getCash() << endl;
+}
+
+void Game::buyhouse(){
+	cout << players[(turn%players.size())].getCash() << endl;
+}
+
+void Game::sellhouse(){
+	cout << players[(turn%players.size())].getCash() << endl;
+}
+
+int Game::roll_dice(){
     srand(time(0));
     dice1 = rand()%6+1;
-    dice2 = rand()%6+1;
     cout << "Dice 1 roll:" << dice1 << endl;
+  	sleep(1);
+    dice2 = rand()%6+1;
     cout << "Dice 2 roll:" << dice2 << endl;
     if(dice1 == dice2){
         counter += 1;

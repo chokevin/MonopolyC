@@ -8,12 +8,14 @@ Property::Property(){
     int rent = 0;
     int house = 0;
     string name = "Kevin's house";
+    owner = 0;
 }
 
 Property::~Property(){
     int rent = 0;
     int house = 0;
     string name = "Kevin's house";
+    owner = 0;
 }
 
 string Property::getName(){
@@ -36,11 +38,10 @@ int Property::getOwner(){
     return owner;
 }
 
-int Property::init(string Name, int ID, int Rent){
+void Property::init(int ID, int Price, int Rent, string Name){
     name = Name;
     id = ID;
+    price = Price;
     rent = Rent;
-    house = 0;
-    owner = 0;
 }
 

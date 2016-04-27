@@ -10,7 +10,7 @@ public:
    
 /* Constructor and Deconstructor */
     
-    Player(string Name, int Number, int Cash = 1500, int Position = 0);
+    Player();
     ~Player();
 
 /* Accessor Functions 
@@ -19,7 +19,7 @@ public:
  * that the Player class stores.
  *
 */ 
-    string player_getName();
+    string getName();
     int getNumber();
     int getCash();
     int getPosition();
@@ -33,6 +33,9 @@ public:
     void editName(string Name);
     void editNumber(int Number);
     void editCash(int Cash);
+    void editPosition(int Position);
+    void addCash(int addedcash);
+
    
 
 private:
