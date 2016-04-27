@@ -90,7 +90,6 @@ void Game::init_game(){
 void Game::menu(){
     char Action;
     int n = (turn%players.size());
-    cout << "\033[2J\033[1;1H";
     cout << "It is Player " << (turn%players.size())+1 << "'s turn" << endl;
     cout << "You have $" << players[n].getCash() << " at your disposal" << endl; 
     cout << "You are at position " << players[n].getPosition() << " which is " << board[players[n].getPosition()].getName() << endl;
@@ -143,9 +142,11 @@ void Game::selection(char Action){
 
 void Game::moveplayer(){
 	int move;
+    cout << "\033[2J\033[1;1H";
 	move = roll_dice();
-    players[(turn%players.size())].editPosition(move);
-    int check = board[players[(turn%players.size())].getPosition()].getID();
+    int n = turn%players.size();
+    players[n].editPosition(move);
+    int check = board[players[n].getPosition()].getID();
     if(check == 1){
         if(board[players[(turn%players.size())].getPosition()].getOwner() == 0){
             bool flag = buyproperty();
@@ -153,10 +154,10 @@ void Game::moveplayer(){
                 auctionproperty();
             }
         }
-        else if(board[players[(turn%players.size())].getPosition()].getOwner() != (turn%players.size())){
-            int money = board[players[(turn%players.size())].getPosition()].getRent();
-            players[board[players[(turn%players.size())].getPosition()].getOwner()].addCash(money);
-            players[(turn%players.size())].minusCash(money);
+        else if(board[players[n].getPosition()].getOwner() != n){
+            int money = board[players[n].getPosition()].getRent();
+            players[board[players[n].getPosition()].getOwner()].addCash(money);
+            players[n].minusCash(money);
         }
 
     }
@@ -222,19 +223,48 @@ bool Game::buyproperty(){
     char input;
     int n = (turn%players.size());
     cout << "Buying the property" << endl;
-    cout << "Would you like to buy " << board[players[n].getPosition()].getName() << "? (y or n):";
-    cin >> input; 
+        cout << "Would you like to buy " << board[players[n].getPosition()].getName() << "? (y or n):";
+        cin >> input; 
     if( input == 'y'){
         players[n].minusCash(board[players[n].getPosition()].getPrice());
         board[players[n].getPosition()].editOwner(n);
+        cout << board[players[n].getPosition()].getName() << " was bought by Player " << turn%players.size() + 1 << "!" << endl;
         return true;
     }
     else if ( input == 'n'){
         return false;
     }
+    buyproperty();
     return false;
 }
 
 void Game::auctionproperty(){
+    bool flag = false;
+    vector<bool> check;
+    char choice;
+    int i = 0;
+    int n = turn%players.size();
+    check.resize((players.size()), false);
+    cout << "Welcome to the Auction!" << endl;
+    cout << "----------------------------------------------------------------------";
+    while(!flag){
+        check[i] = bidproperty(n+i);
+        i++;
+        if(i == 4){
+            i = 0;
+        }
+        if(check[0] == true && check[1] == true && check[2] == true && check[3] == true){
+            flag = true;
+        }
+    }
+    cout << "Winner of this auction is Player " << n+i << "for $" << auctionmoney << endl;
+    players[n+i].minusCash(auctionmoney);
+    board[players[n].getPosition()].editOwner(n);
+    auctionmoney = 0;
+}
+
+bool Game::bidproperty(int player){
+
+return true;
 
 }

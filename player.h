@@ -23,6 +23,7 @@ public:
     int getNumber();
     int getCash();
     int getPosition();
+    
 /* Manipulator Functions
  *
  * These are the functions that are used to manipulate the private variables stored
