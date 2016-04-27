@@ -2,36 +2,45 @@
 #include <vector>
 #include <string>
 #include "property.h"
+using namespace std;
 
 Property::Property(){
     int rent = 0;
     int house = 0;
-    int hotel = 0;
-    std::string name = "Kevin's house";
+    string name = "Kevin's house";
 }
 
 Property::~Property(){
     int rent = 0;
     int house = 0;
-    int hotel = 0;
-    std::string name = "Kevin's house";
+    string name = "Kevin's house";
 }
 
-int Property::prop_getRent(){
-    return rent;
-}
-
-int Property::prop_getHouse(){
-    return house;
-}
-
-int Property::prop_getHotel(){
-    return hotel;
-}
-
-std::string Property::prop_getName(){
+string Property::getName(){
     return name;
 }
 
+int Property::getID(){
+    return id;
+}
 
+int Property::getRent(){
+    return rent;
+}
+
+int Property::getHouse(){
+    return house;
+}
+
+int Property::getOwner(){
+    return owner;
+}
+
+int Property::init(string Name, int ID, int Rent){
+    name = Name;
+    id = ID;
+    rent = Rent;
+    house = 0;
+    owner = 0;
+}
 

@@ -1,6 +1,7 @@
 #include <iostream>
 #include <vector>
 #include <string>
+using namespace std;
 
 class Property{
 
@@ -11,19 +12,22 @@ public:
     ~Property();
 
     /* Accessor functions */
-    int prop_getRent();
-    int prop_getHouse();
-    int prop_getHotel();
-    std::string prop_getName();
+    string getName();
+    int getID();
+    int getRent();
+    int getHouse();
+    int getOwner();
     
     /* the initializing of properties */
-    void init_property(std::string Name, int Rent, int House, int Hotel);
+    void init(int ID, int Price, int Rent, string Name);
 private:
-    std::string name;
+    string name;
     int id;
+    int price;
     int rent;
     int house;
     int owner;
+    bool monopoly;
 
 
 };

@@ -18,31 +18,31 @@ Player::~Player(){
 
 
 
-std::string Player::player_getName(){
+std::string Player::getName(){
     return name;
 }
 
-int Player::player_getNumber(){
+int Player::getNumber(){
     return number;
 }
 
-int Player::player_getCash(){
+int Player::getCash(){
     return cash;
 }
 
-int Player::player_getPosition(){
+int Player::getPosition(){
     return position;
 }
 
-void Player::player_editName(std::string Name){
+void Player::editName(std::string Name){
     name = Name;
 }
 
-void Player::player_editNumber(int Number){
+void Player::editNumber(int Number){
     number = Number;
 }
 
-void Player::player_editCash(int Cash){
+void Player::editCash(int Cash){
     cash = Cash;
 }
     

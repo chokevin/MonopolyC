@@ -2,6 +2,7 @@
 #include <string>
 
 #define MAXSIZE 40
+using namespace std;
 
 class Player{
 
@@ -9,7 +10,7 @@ public:
    
 /* Constructor and Deconstructor */
     
-    Player(std::string Name, int Number, int Cash = 1500, int Position = 0);
+    Player(string Name, int Number, int Cash = 1500, int Position = 0);
     ~Player();
 
 /* Accessor Functions 
@@ -18,10 +19,10 @@ public:
  * that the Player class stores.
  *
 */ 
-    std::string player_getName();
-    int player_getNumber();
-    int player_getCash();
-    int player_getPosition();
+    string player_getName();
+    int getNumber();
+    int getCash();
+    int getPosition();
 /* Manipulator Functions
  *
  * These are the functions that are used to manipulate the private variables stored
@@ -29,14 +30,14 @@ public:
  *
 */
    
-    void player_editName(std::string Name);
-    void player_editNumber(int Number);
-    void player_editCash(int Cash);
+    void editName(string Name);
+    void editNumber(int Number);
+    void editCash(int Cash);
    
 
 private:
     void init_to_empty(); 
-    std::string name;
+    string name;
     int number;
     int cash;
     int position;

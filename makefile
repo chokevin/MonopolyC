@@ -16,4 +16,4 @@ clean:
 	rm -f *.o
 
 real_clean: clean
-	rm - f driver1
+	rm -f driver1

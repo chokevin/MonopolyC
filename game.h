@@ -4,6 +4,7 @@
 #include "property.h"
 #define MAXSIZE 40
 
+using namespace std;
 class Player;
 
 class Game{
@@ -18,7 +19,7 @@ public:
     
     
 private: 
-    std::vector<Player> players;
+    vector<Player> players;
     Property board[MAXSIZE];
     int dice1;
     int dice2; 
