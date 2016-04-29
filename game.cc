@@ -44,6 +44,23 @@ void Game::init_game(){
     // ID 9 = Tax
     // ID 10 = Go to Jail
 
+    
+    init_board();
+    cout << "How many players will be playing? (1-4 players):";
+    cin >> numplayers;
+    players.resize(numplayers);
+    for(int i = 0; i < numplayers; i++){
+    	players[i].editCash(1500);
+    }
+    
+    while(1){
+        menu();
+    }
+    
+}
+ 
+void Game::init_board(){
+
     board[0].init(4, 0, 0, "Go");
     board[1].init(1, 60, 2, "Mediterranean Ave"); 
     board[2].init(8, 0, 0, "Community Chest");
@@ -85,26 +102,16 @@ void Game::init_game(){
     board[38].init(9, 100, 0, "Luxury Tax");
     board[39].init(1, 400, 50, "Boardwalk");
     
-    
-    
-    cout << "How many players will be playing? (1-4 players):";
-    cin >> numplayers;
-    players.resize(numplayers);
-    for(int i = 0; i < numplayers; i++){
-    	players[i].editCash(1500);
-    }
-    
-    while(1){
-        menu();
-    }
-    
 }
- 
+
 void Game::menu(){
     char Action;
     int n = (turn%players.size());
-    cout << "It is Player " << (turn%players.size())+1 << "'s turn" << endl;
-    cout << "You have $" << players[n].getCash() << " at your disposal" << endl; 
+    
+    jailcheck();
+    cout << "It is Player " << (turn%players.size())+1 << "'s turn" << endl;    
+    displaymoney();
+     
     cout << "You are at position " << players[n].getPosition() << " which is " << board[players[n].getPosition()].getName() << endl;
     cout << "---------------------------------------------------------------" << endl; 
     cout << "What actions would you like to take?" << endl;
@@ -184,10 +191,10 @@ void Game::moveplayer(){
         /* This is the code that handles when the player lands on the Go title...?*/
      //   gotile();
     //}
-    else if(check == 5){
+    //else if(check == 5){
         /* This is the code that handles when the player lands on the Jail tile */
-        jailtile();
-    }
+      //  jailtile();
+   // }
     else if(check == 6){
         /* this is the code that handles when the player lands on the free parking tile */
         parkingtile();
@@ -427,10 +434,12 @@ void Game::gotojail(){
 
 void Game::jailtile(){
     int n = turn%players.size();
+    cout << "It is Player " << (turn%players.size())+1 << "'s turn" << endl;
     cout << "You are on the jail tile" << endl;
     if(players[n].getJail()){
-        cout << "You are currently a prisoner" << endl;
+        cout << "You are currently a prisoner... skipping your turn" << endl;
         turn++;
+        players[n].editJail(false);
     }
 }
 
@@ -449,3 +458,16 @@ void Game::init_to_empty(){
     counter = 0;
 }
 
+void Game::displaymoney(){
+    for(int i = 0 ; i < players.size() ; i++){
+        cout << "Player " << 1+i << " has $" << players[i].getCash() << " at his disposal" << endl; 
+    }
+}
+
+void Game::jailcheck(){
+    int n = turn%players.size();
+    int check = board[players[n].getPosition()].getID();
+    if(check == 5){
+        jailtile();
+    }
+}

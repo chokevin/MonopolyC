@@ -26,17 +26,20 @@ public:
 
     /* Function initializes trading between players. */
     void init_trade();
+    void init_board();
     
     /* Functions that deal with accessing information about property tiles */
     void buyhouse();
     void sellhouse();
     void moveplayer();
+    void displaymoney();
     bool buyproperty();
     bool buyrailroad();
     bool buyutility();
     void auctionproperty();
     void checkproperties();
     bool bidproperty(int player);
+    void jailcheck();
 
     /* Functions which indicate what actions to take when landing on a specific tile */
     void propertytile();
