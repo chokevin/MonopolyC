@@ -1,8 +1,8 @@
 CCC = g++
 CCFLAGS = -ansi
 
-driver1: driver1.o player.o game.o property.o
-	$(CCC) -o driver1 driver1.o player.o game.o property.o
+monopoly: driver1.o player.o game.o property.o
+	$(CCC) -o monopoly driver1.o player.o game.o property.o
 
 driver1.o:
 
@@ -16,4 +16,4 @@ clean:
 	rm -f *.o
 
 real_clean: clean
-	rm -f driver1
+	rm -f monopoly

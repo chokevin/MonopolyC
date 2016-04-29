@@ -6,7 +6,7 @@
 using namespace std;
 
 Player::Player(){
-
+    init_to_empty();
 }
 
 Player::~Player(){
@@ -34,6 +34,10 @@ int Player::getPosition(){
 
 bool Player::getJail(){
     return jailtime;
+}
+
+int Player::getproperties(){
+    return properties;
 }
 
 void Player::editName(std::string Name){
@@ -65,6 +69,14 @@ void Player::editPosition(int Position){
     
 }
 
+void Player::addproperties(){
+    properties++;
+}
+
+void Player::minusproperties(){
+    properties--;
+}
+
 void Player::changePosition(int Position){
     position = Position;
 }
@@ -79,5 +91,6 @@ void Player::init_to_empty(){
     number = 0;
     cash = 1500;
     position = 0;
+    jailtime = 0;
 }
 

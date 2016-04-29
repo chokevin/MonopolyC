@@ -40,6 +40,7 @@ public:
     void checkproperties();
     bool bidproperty(int player);
     void jailcheck();
+    int checkrailroads();
 
     /* Functions which indicate what actions to take when landing on a specific tile */
     void propertytile();
@@ -50,6 +51,8 @@ public:
     void chancetile();
     void chesttile();
     void gotojail();
+    void maketrade();
+
 
     
 private: 
@@ -64,4 +67,6 @@ private:
     int tax;
 
 };
+
+void makeline();
 

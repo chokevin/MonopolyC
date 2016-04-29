@@ -24,7 +24,7 @@ public:
     int getCash();
     int getPosition();
     bool getJail();
-
+    int getproperties();
 /* Manipulator Functions
  *
  * These are the functions that are used to manipulate the private variables stored
@@ -38,7 +38,8 @@ public:
     void editPosition(int Position);
     void addCash(int addedcash);
     void minusCash(int minuscash);
-
+    void addproperties();
+    void minusproperties();
     void editJail( bool inJail);
     void changePosition(int Position);
 
@@ -51,6 +52,7 @@ private:
     int cash;
     int position;
     bool jailtime;
+    int properties;
     
 };
 

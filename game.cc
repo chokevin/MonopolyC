@@ -29,7 +29,9 @@ Game::~Game(){
 
 void Game::init_game(){
 	board.resize(MAXSIZE);
+    cout << "\033[2J\033[1;1H";
     cout << "Initializing Game" << endl;
+    makeline();
     
     int numplayers;
 
@@ -113,7 +115,7 @@ void Game::menu(){
     displaymoney();
      
     cout << "You are at position " << players[n].getPosition() << " which is " << board[players[n].getPosition()].getName() << endl;
-    cout << "---------------------------------------------------------------" << endl; 
+    makeline();
     cout << "What actions would you like to take?" << endl;
    	cout << "(R)oll the dice" << endl;	
     cout << "(C)heck owned properties" << endl;
@@ -212,6 +214,9 @@ void Game::moveplayer(){
         cout << "Lol you landed on some tax bro, but since its the free version of Monopoly pay us $200" << endl;
         players[n].minusCash(200);
 
+        /* Puts money into the middle for the free parking */
+        tax += 200;
+
     }
     else if(check == 10){
         gotojail();
@@ -222,6 +227,13 @@ void Game::moveplayer(){
 void Game::init_trade(){
     /*Haven't coded this part yet */
 	cout << "Initializing Trade";
+    cout << "Who would you like to trade with?" << endl;
+    makeline();
+
+    /* Design the while loop to display the choices between players 1 - 4. This varies depending on how many players are playing. */
+
+    cout << "Trading with Player" << endl;
+    maketrade();
 }
 
 void Game::buyhouse(){
@@ -260,6 +272,7 @@ bool Game::buyproperty(){
         players[n].minusCash(board[players[n].getPosition()].getPrice());
         board[players[n].getPosition()].editOwner(n+1);
         cout << board[players[n].getPosition()].getName() << " was bought by Player " << n+1 << "!" << endl;
+        players[n].addproperties();
         return true;
     }
     else if ( input == 'n'){
@@ -279,6 +292,7 @@ bool Game::buyrailroad(){
         players[n].minusCash(board[players[n].getPosition()].getPrice());
         board[players[n].getPosition()].editOwner(n+1);
         cout << board[players[n].getPosition()].getName() << " was bought by Player " << n+1 << "!" << endl;
+        players[n].addproperties();
         return true;
     }
     else if ( input == 'n'){
@@ -298,6 +312,7 @@ bool Game::buyutility(){
         players[n].minusCash(board[players[n].getPosition()].getPrice());
         board[players[n].getPosition()].editOwner(n+1);
         cout << board[players[n].getPosition()].getName() << " was bought by Player " << n+1 << "!" << endl;
+        players[n].addproperties();
         return true;
     }
     else if ( input == 'n'){
@@ -315,7 +330,7 @@ void Game::auctionproperty(){
     int n = turn%players.size();
     check.resize((players.size()), false);
     cout << "Welcome to the Auction!" << endl;
-    cout << "----------------------------------------------------------------------";
+    makeline();
     while(!flag){
         check[i] = bidproperty(n+i);
         i++;
@@ -340,12 +355,15 @@ return true;
 
 void Game::checkproperties(){
     int owner;
+    int counter = 1;
     int n = turn%players.size();
-    cout << "Checking Properties:" << endl << "-----------------------------------------------------------------" << endl;
+    cout << "Checking Properties:" << endl;
+    makeline();
     for(int i = 0; i < board.size(); i++){
         owner = board[i].getOwner();
         if(owner == n+1){
-            cout << "You own: " << board[i].getName() << endl;
+            cout << "You own: " << counter << ". " << board[i].getName() << endl;
+            counter++;
         }
     }
 }
@@ -377,10 +395,21 @@ void Game::railroadtile(){
         }
     }
 
-    /* Currently this other half of the conditional is wrong... The cash distribution for the railroad has not been factored in yet... */
-
     else if(board[players[n].getPosition()].getOwner() != n+1){
-        int money = board[players[n].getPosition()].getRent();
+        int check = checkrailroads();
+        int money;
+        if(check == 1){
+            money = 25;
+        }
+        if(check == 2){
+            money = 50;
+        }
+        if(check == 3){
+            money = 100;
+        }
+        if(check == 4){
+            money = 200;
+        }
         players[board[players[n].getPosition()].getOwner()].addCash(money);
         players[n].minusCash(money);
     }
@@ -470,4 +499,37 @@ void Game::jailcheck(){
     if(check == 5){
         jailtile();
     }
+}
+
+void Game::maketrade(){ 
+    
+    /* Haven't completed this function yet */
+
+    char input;
+    cout << "Which property would you like to trade? (Choose from 1 - " << players[turn%players.size()].getproperties() << ")" << endl;
+    makeline();
+    checkproperties();
+    //cin << input;
+    cout << "Traded to Player" << endl;
+
+}
+
+int Game::checkrailroads(){
+    int check = 0;
+    int x = 0;
+    int n = turn%players.size();
+    for(int i = 0; i < 4; i++){ 
+        int owner = board[5+x].getOwner();
+        if(owner == n+1){
+            check++;
+        }
+        x+=10;
+    }
+    return check;
+}
+
+/* Assistor functions to the Game Class */
+
+void makeline(){
+    cout << "--------------------------------------------------------------------" << endl;
 }
