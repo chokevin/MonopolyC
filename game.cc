@@ -14,6 +14,19 @@ using namespace std;
 
 #define MAXSIZE 40 
 
+
+/* As a general rule... the n variable is used find the correct index of which player's turn it is. 
+   n+1 is used because although players[0] refers to player 1 we need to display +1 to get the actual player number. index goes from 0-3 | player number goes from 1-4
+*/
+
+Game::Game(){
+    init_to_empty();
+}
+
+Game::~Game(){
+    init_to_empty();
+}
+
 void Game::init_game(){
 	board.resize(MAXSIZE);
     cout << "Initializing Game" << endl;
@@ -96,6 +109,7 @@ void Game::menu(){
     cout << "---------------------------------------------------------------" << endl; 
     cout << "What actions would you like to take?" << endl;
    	cout << "(R)oll the dice" << endl;	
+    cout << "(C)heck owned properties" << endl;
 	cout << "(T)rade a property" << endl;    
 	cout << "(B)uy a house" << endl;    
 	cout << "(S)ell a house" << endl;    	
@@ -128,6 +142,11 @@ void Game::selection(char Action){
                 sellhouse();
                 menu();
                 break;
+            case 'c':
+                cout << "Owned Properties" << endl;
+                checkproperties();
+                menu();
+                break;
             case 'q':
                 exit(1);
                 break;
@@ -147,60 +166,65 @@ void Game::moveplayer(){
     int n = turn%players.size();
     players[n].editPosition(move);
     int check = board[players[n].getPosition()].getID();
+    cout << "Player " << n+1 << " landed on " << board[players[n].getPosition()].getName() << endl;
     if(check == 1){
-        if(board[players[(turn%players.size())].getPosition()].getOwner() == 0){
-            bool flag = buyproperty();
-            if(!flag){
-                auctionproperty();
-            }
-        }
-        else if(board[players[n].getPosition()].getOwner() != n){
-            int money = board[players[n].getPosition()].getRent();
-            players[board[players[n].getPosition()].getOwner()].addCash(money);
-            players[n].minusCash(money);
-        }
-
+        
+        propertytile();
     }
     else if(check == 2){
+       /* This is the code that handles when the player lands on a railroad tile */
+        railroadtile();
 
     }
     else if(check == 3){
-
+        /* This is the code that handles when the player lands on a utility tile */
+        utilitytile();
     }
-    else if(check == 4){
-
-    }
+   // else if(check == 4){
+        /* This is the code that handles when the player lands on the Go title...?*/
+     //   gotile();
+    //}
     else if(check == 5){
-
+        /* This is the code that handles when the player lands on the Jail tile */
+        jailtile();
     }
     else if(check == 6){
-
+        /* this is the code that handles when the player lands on the free parking tile */
+        parkingtile();
     }
     else if(check == 7){
-
+        /* this is the code that handles when the player lands on the chance tile */
+        chancetile();
     }
-    else if(check == 8){
+    else if(check == 8){   
+        /* this is the code that handles when the player lands on the community chest tile */
+        chesttile();
 
     }
     else if(check == 9){
+        cout << "Lol you landed on some tax bro, but since its the free version of Monopoly pay us $200" << endl;
+        players[n].minusCash(200);
 
     }
     else if(check == 10){
-        
+        gotojail();
     } 
     turn++;
 }
 
 void Game::init_trade(){
-	cout << players[(turn%players.size())].getCash() << endl;
+    /*Haven't coded this part yet */
+	cout << "Initializing Trade";
 }
 
 void Game::buyhouse(){
-	cout << players[(turn%players.size())].getCash() << endl;
+    /* Haven't coded this part yet either */
+	cout << "Currently the free version doesn't support buying houses... Support the developers" << endl;
 }
 
 void Game::sellhouse(){
-	cout << players[(turn%players.size())].getCash() << endl;
+    /* Haven't coded this part yet */
+    cout << "Currently the free version doesn't support selling houses... Support the developers" << endl;
 }
 
 int Game::roll_dice(){
@@ -227,14 +251,52 @@ bool Game::buyproperty(){
         cin >> input; 
     if( input == 'y'){
         players[n].minusCash(board[players[n].getPosition()].getPrice());
-        board[players[n].getPosition()].editOwner(n);
-        cout << board[players[n].getPosition()].getName() << " was bought by Player " << turn%players.size() + 1 << "!" << endl;
+        board[players[n].getPosition()].editOwner(n+1);
+        cout << board[players[n].getPosition()].getName() << " was bought by Player " << n+1 << "!" << endl;
         return true;
     }
     else if ( input == 'n'){
         return false;
     }
     buyproperty();
+    return false;
+}
+
+bool Game::buyrailroad(){
+        char input;
+    int n = (turn%players.size());
+    cout << "Buying the railroad" << endl;
+        cout << "Would you like to buy " << board[players[n].getPosition()].getName() << "? (y or n):";
+        cin >> input; 
+    if( input == 'y'){
+        players[n].minusCash(board[players[n].getPosition()].getPrice());
+        board[players[n].getPosition()].editOwner(n+1);
+        cout << board[players[n].getPosition()].getName() << " was bought by Player " << n+1 << "!" << endl;
+        return true;
+    }
+    else if ( input == 'n'){
+        return false;
+    }
+    buyrailroad();
+    return false;
+}
+
+bool Game::buyutility(){
+    char input;
+    int n = (turn%players.size());
+    cout << "Buying the utility" << endl;
+        cout << "Would you like to buy " << board[players[n].getPosition()].getName() << "? (y or n):";
+        cin >> input; 
+    if( input == 'y'){
+        players[n].minusCash(board[players[n].getPosition()].getPrice());
+        board[players[n].getPosition()].editOwner(n+1);
+        cout << board[players[n].getPosition()].getName() << " was bought by Player " << n+1 << "!" << endl;
+        return true;
+    }
+    else if ( input == 'n'){
+        return false;
+    }
+    buyutility();
     return false;
 }
 
@@ -268,3 +330,122 @@ bool Game::bidproperty(int player){
 return true;
 
 }
+
+void Game::checkproperties(){
+    int owner;
+    int n = turn%players.size();
+    cout << "Checking Properties:" << endl << "-----------------------------------------------------------------" << endl;
+    for(int i = 0; i < board.size(); i++){
+        owner = board[i].getOwner();
+        if(owner == n+1){
+            cout << "You own: " << board[i].getName() << endl;
+        }
+    }
+}
+
+void Game::propertytile(){
+    int n = turn%players.size();
+        /* This is the code to handle when the player lands on a property tile */
+    if(board[players[(turn%players.size())].getPosition()].getOwner() == 0){
+        bool flag = buyproperty();
+        if(!flag){
+            //auctionproperty();
+        }
+    }
+    else if(board[players[n].getPosition()].getOwner() != n+1){
+        int money = board[players[n].getPosition()].getRent();
+        cout << "Player " << board[players[n].getPosition()].getOwner() << " owns this property, you pay him $" << money << endl;     
+        players[(board[players[n].getPosition()].getOwner())-1].addCash(money);
+        players[n].minusCash(money);
+    }
+}
+
+void Game::railroadtile(){
+        int n = turn%players.size();
+        /* This is the code to handle when the player lands on a property tile */
+    if(board[players[(turn%players.size())].getPosition()].getOwner() == 0){
+        bool flag = buyrailroad();
+        if(!flag){
+            //auctionproperty();
+        }
+    }
+
+    /* Currently this other half of the conditional is wrong... The cash distribution for the railroad has not been factored in yet... */
+
+    else if(board[players[n].getPosition()].getOwner() != n+1){
+        int money = board[players[n].getPosition()].getRent();
+        players[board[players[n].getPosition()].getOwner()].addCash(money);
+        players[n].minusCash(money);
+    }
+}
+
+void Game::chancetile(){
+    
+    /* Currently this is the function for chance... Except there's only one option for now. To add $200 to the players total. Later updates will include other chance cards that are chosen 
+    at random based on srand()... */
+
+    cout << "You landed on Chance!... There's only one chance card for now... You get $200!" << endl;
+    players[turn%players.size()].addCash(200);
+}
+
+void Game::parkingtile(){
+
+    cout << "You landed on Free Parking!... You can collect the money that has been taken as tax: $" << tax << "!'" << endl;
+    players[turn%players.size()].addCash(tax);
+    tax = 0;
+
+}
+
+void Game::utilitytile(){
+    int n = turn%players.size();
+        /* This is the code to handle when the player lands on a property tile */
+    if(board[players[(turn%players.size())].getPosition()].getOwner() == 0){
+        bool flag = buyutility();
+        if(!flag){
+            //auctionproperty();
+        }
+    }
+
+    /* Currently this other half of the conditional is wrong as well... the cash distribution for the utilities have not been factored in yet */
+    else if(board[players[n].getPosition()].getOwner() != n+1){
+        int money = board[players[n].getPosition()].getRent();
+        players[board[players[n].getPosition()].getOwner()].addCash(money);
+        players[n].minusCash(money);
+    }
+
+}
+
+
+void Game::gotojail(){
+    int n = turn%players.size();
+    cout << "Why you breaking the law for! GO TO JAIL PLAYER " << (n+1) << endl;
+    players[n].editPosition(10);
+    players[n].editJail(true);
+
+
+}
+
+void Game::jailtile(){
+    int n = turn%players.size();
+    cout << "You are on the jail tile" << endl;
+    if(players[n].getJail()){
+        cout << "You are currently a prisoner" << endl;
+        turn++;
+    }
+}
+
+void Game::chesttile(){
+    
+    /*This can be updated to include many other chest cards if we like */
+
+    cout << "You landed on Community Chest!... There's only one Community Chest card for now... You get $20!" << endl;
+    players[turn%players.size()].addCash(20);
+
+}
+
+void Game::init_to_empty(){
+    auctionmoney = 0;
+    tax = 0;
+    counter = 0;
+}
+

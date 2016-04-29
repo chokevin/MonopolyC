@@ -32,6 +32,10 @@ int Player::getPosition(){
     return position;
 }
 
+bool Player::getJail(){
+    return jailtime;
+}
+
 void Player::editName(std::string Name){
     name = Name;
 }
@@ -60,6 +64,15 @@ void Player::editPosition(int Position){
     }
     
 }
+
+void Player::changePosition(int Position){
+    position = Position;
+}
+
+void Player::editJail(bool inJail){
+    jailtime = inJail;
+}
+
     
 void Player::init_to_empty(){
     name = "blank";

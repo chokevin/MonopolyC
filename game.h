@@ -10,6 +10,10 @@ class Property;
 class Game{
 
 public:
+    
+    Game();
+    ~Game();
+
     void init_game();
 
 /* This function rolls the dice and returns the amount of space the player moves 
@@ -28,10 +32,25 @@ public:
     void sellhouse();
     void moveplayer();
     bool buyproperty();
+    bool buyrailroad();
+    bool buyutility();
     void auctionproperty();
+    void checkproperties();
     bool bidproperty(int player);
+
+    /* Functions which indicate what actions to take when landing on a specific tile */
+    void propertytile();
+    void railroadtile();
+    void utilitytile();
+    void jailtile();
+    void parkingtile();
+    void chancetile();
+    void chesttile();
+    void gotojail();
+
     
 private: 
+    void init_to_empty();
     vector<Player> players;
     vector <Property> board;
     int turn;
@@ -39,6 +58,7 @@ private:
     int dice2; 
     int counter;
     int auctionmoney;
+    int tax;
 
 };
 
