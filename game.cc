@@ -19,6 +19,7 @@ using namespace std;
    n+1 is used because although players[0] refers to player 1 we need to display +1 to get the actual player number. index goes from 0-3 | player number goes from 1-4
 */
 
+/* Constructor and deconstructor for the game class */
 Game::Game(){
     init_to_empty();
 }
@@ -27,6 +28,7 @@ Game::~Game(){
     init_to_empty();
 }
 
+/* Initializing Functions */
 void Game::init_game(){
 	board.resize(MAXSIZE);
     cout << "\033[2J\033[1;1H";
@@ -110,6 +112,7 @@ void Game::menu(){
     char Action;
     int n = (turn%players.size());
     
+    displayboard();
     jailcheck();
     cout << "It is Player " << (turn%players.size())+1 << "'s turn" << endl;    
     displaymoney();
@@ -211,7 +214,7 @@ void Game::moveplayer(){
 
     }
     else if(check == 9){
-        cout << "Lol you landed on some tax bro, but since its the free version of Monopoly pay us $200" << endl;
+        cout << "Lol you landed on some tax bro, but since its the free version of Monopoly just pay us $200" << endl;
         players[n].minusCash(200);
 
         /* Puts money into the middle for the free parking */
@@ -417,11 +420,41 @@ void Game::railroadtile(){
 
 void Game::chancetile(){
     
-    /* Currently this is the function for chance... Except there's only one option for now. To add $200 to the players total. Later updates will include other chance cards that are chosen 
-    at random based on srand()... */
+    /* Currently this is the function for chance... new updates have been added to increase the amount of options for chance. 
+    The switch statement allows for an easy way to increase the amount of chance cards... */
+    
+    int choice;
+    srand(time(0));
+    choice = rand()%5;
+    int n = turn%players.size();
+    /* This switch statement chooses at random the chance card that is selected for the player that lands on it. This can be either increased
+    or decreased very simply by adding more case choices. Currently can be further developed.
+    */\
 
-    cout << "You landed on Chance!... There's only one chance card for now... You get $200!" << endl;
-    players[turn%players.size()].addCash(200);
+    switch(choice){
+        case 0:
+            cout << "You landed on Chance!... You get $200!" << endl;
+            players[n].addCash(200);
+        case 1:
+            cout << "You landed on Chance!... You get sent to Jail!" << endl;
+            players[n].editPosition(19);
+            players[n].editJail(true);
+        case 2:
+            cout << "You landed on Chance!... You get a free pass to Go! (also $200)" << endl;
+            players[n].editPosition(0);
+            players[n].addCash(200);
+        case 3:
+            cout << "You landed on Chance!... move to Reading Railroad" << endl;
+            if(players[n].getPosition() > 5){
+                players[n].addCash(200);
+                players[n].editPosition(5);
+            }
+
+        case 4:
+            cout << "You landed on Chance!... Nothing happens... Better support the developers for more updates!" << endl;
+    }
+
+
 }
 
 void Game::parkingtile(){
@@ -526,6 +559,10 @@ int Game::checkrailroads(){
         x+=10;
     }
     return check;
+}
+
+void Game::displayboard(){
+    /* Have to make display function */
 }
 
 /* Assistor functions to the Game Class */
