@@ -63,7 +63,7 @@ public:
     bool bidproperty(int player);
     void jailcheck();
     int checkrailroads();
-
+    int checkutilities();
     /* Functions which indicate what actions to take when landing on a specific tile. These were made in supplement to the ID number that can be obtained from 
     the Property class.*/
 

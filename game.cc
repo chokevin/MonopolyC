@@ -326,6 +326,9 @@ bool Game::buyutility(){
 }
 
 void Game::auctionproperty(){
+
+    /* This still needs to be worked on */
+
     bool flag = false;
     vector<bool> check;
     char choice;
@@ -425,7 +428,7 @@ void Game::chancetile(){
     
     int choice;
     srand(time(0));
-    choice = rand()%5;
+    choice = rand()%10;
     int n = turn%players.size();
     /* This switch statement chooses at random the chance card that is selected for the player that lands on it. This can be either increased
     or decreased very simply by adding more case choices. Currently can be further developed.
@@ -452,6 +455,23 @@ void Game::chancetile(){
 
         case 4:
             cout << "You landed on Chance!... Nothing happens... Better support the developers for more updates!" << endl;
+        case 5:
+            cout << "You landed on Chance!... You get $50!" << endl;
+            players[n].addCash(50);
+        case 6:
+            cout << "You landed on Chance!... You get $10!" << endl;
+            players[n].addCash(10);
+        case 7:
+            cout << "You landed on Chance!... Move to Broadway!" << endl;
+            players[n].editPosition(39);
+        case 8:
+            cout << "You landed on Chance!... Move to Income Tax!" << endl;
+            players[n].editPosition(4);
+            cout << "Lol Bro you landed on chance!... But since this is the free version give us $200!" << endl;
+            players[n].minusCash(200);
+        case 9:
+            cout << "You landed on Chance!... You pay $5 to support the developers!... It would be nice if that was true..." << endl;
+            players[n].minusCash(5);
     }
 
 
@@ -477,9 +497,16 @@ void Game::utilitytile(){
 
     /* Currently this other half of the conditional is wrong as well... the cash distribution for the utilities have not been factored in yet */
     else if(board[players[n].getPosition()].getOwner() != n+1){
-        int money = board[players[n].getPosition()].getRent();
-        players[board[players[n].getPosition()].getOwner()].addCash(money);
-        players[n].minusCash(money);
+        int roll = roll_dice();
+        int check = checkutilities();
+        if(check == 1){
+            players[n].minusCash(roll*4);
+            players[board[players[n].getPosition()].getOwner()].addCash(roll*4);
+        }
+        if(check == 2){
+            players[n].minusCash(roll*10);
+            players[board[players[n].getPosition()].getOwner()].addCash(roll*10);            
+        }
     }
 
 }
@@ -557,6 +584,18 @@ int Game::checkrailroads(){
             check++;
         }
         x+=10;
+    }
+    return check;
+}
+
+int Game::checkutilities(){
+    int check = 0;
+    int n = turn%players.size();
+    if(board[12].getOwner() == n+1){
+        check++;
+    }
+    if(board[28].getOwner() == n+1){
+        check++;
     }
     return check;
 }
