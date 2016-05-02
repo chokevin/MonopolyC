@@ -113,7 +113,10 @@ void Game::menu(){
 
     displayboard();
     jailcheck();
+
+    /* this function checks whether the game is still in play or not */
     checkgame();
+
     cout << "It is Player " << (turn%players.size())+1 << "'s turn" << endl;    
     displaymoney();
 
@@ -744,7 +747,7 @@ void Game::displayboard(){
 
 void Game::updatepositions(){
 
-    /* Finished Player 1 and Player 2 update position lol jesus this is hard */
+    /* Finished Player 1, Player 2, and Player 3 update position lol jesus this is hard */
     int position;
 
     /* Update on Player 1 Position */
