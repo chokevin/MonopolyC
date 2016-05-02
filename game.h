@@ -42,6 +42,7 @@ public:
     void maketrade(int player);
     string findproperty(int input);
     int propertynumber(int input);
+    void checkgame();
     /* This function rolls the dice and returns the amount of space the player moves 
        It uses the sleep function in order to offset the random function that uses the
        the time variable for randomness.*/

@@ -1002,124 +1002,124 @@ void Game::updatepositions(){
         position = players[2].getPosition();
         switch(position){
             case 0:
-                boardarray[21][1] = '1';
+                boardarray[22][1] = '3';
                 break;
             case 1:
-                boardarray[19][1] = '1';
+                boardarray[20][1] = '3';
                 break;
             case 2:
-                boardarray[17][1] = '1';
+                boardarray[18][1] = '3';
                 break;
             case 3:
-                boardarray[15][1] = '1';
+                boardarray[16][1] = '3';
                 break;
             case 4:
-                boardarray[13][1] = '1';
+                boardarray[14][1] = '3';
                 break;
             case 5:
-                boardarray[11][1] = '1';
+                boardarray[12][1] = '3';
                 break;
             case 6:
-                boardarray[9][1] = '1'; 
+                boardarray[10][1] = '3'; 
                 break;
             case 7:
-                boardarray[7][1] = '1'; 
+                boardarray[8][1] = '3'; 
                 break;
             case 8:
-                boardarray[5][1] = '1'; 
+                boardarray[6][1] = '3'; 
                 break;
             case 9:
-                boardarray[3][1] = '1'; 
+                boardarray[4][1] = '3'; 
                 break;
             case 10:
-                boardarray[1][1] = '1'; 
+                boardarray[2][1] = '3'; 
                 break;
             case 11:
-                boardarray[1][5] = '1'; 
+                boardarray[2][5] = '3'; 
                 break;
             case 12:
-                boardarray[1][9] = '1'; 
+                boardarray[2][9] = '3'; 
                 break;
             case 13:
-                boardarray[1][13] = '1'; 
+                boardarray[2][13] = '3'; 
                 break;
             case 14:
-                boardarray[1][17] = '1'; 
+                boardarray[2][17] = '3'; 
                 break;
             case 15:
-                boardarray[1][21] = '1'; 
+                boardarray[2][21] = '3'; 
                 break;
             case 16:
-                boardarray[1][25] = '1'; 
+                boardarray[2][25] = '3'; 
                 break;
             case 17:
-                boardarray[1][29] = '1'; 
+                boardarray[2][29] = '3'; 
                 break;
             case 18:
-                boardarray[1][33] = '1'; 
+                boardarray[2][33] = '3'; 
                 break;
             case 19:
-                boardarray[1][37] = '1'; 
+                boardarray[2][37] = '3'; 
                 break;
             case 20:
-                boardarray[1][41] = '1'; 
+                boardarray[2][41] = '3'; 
                 break;
             case 21:
-                boardarray[3][41] = '1'; 
+                boardarray[4][41] = '3'; 
                 break;
             case 22:
-                boardarray[5][41] = '1'; 
+                boardarray[6][41] = '3'; 
                 break;
             case 23:
-                boardarray[7][41] = '1'; 
+                boardarray[8][41] = '3'; 
                 break;
             case 24:
-                boardarray[9][41] = '1'; 
+                boardarray[10][41] = '3'; 
                 break;
             case 25:
-                boardarray[11][41] = '1'; 
+                boardarray[12][41] = '3'; 
                 break;
             case 26:
-                boardarray[13][41] = '1'; 
+                boardarray[14][41] = '3'; 
                 break;
             case 27:
-                boardarray[15][41] = '1'; 
+                boardarray[16][41] = '3'; 
                 break;
             case 28:
-                boardarray[17][41] = '1'; 
+                boardarray[18][41] = '3'; 
                 break;
             case 29:
-                boardarray[19][41] = '1'; 
+                boardarray[20][41] = '3'; 
                 break;
             case 30:
-                boardarray[21][41] = '1'; 
+                boardarray[22][41] = '3'; 
                 break;
             case 31:
-                boardarray[21][37] = '1'; 
+                boardarray[22][37] = '3'; 
                 break;
             case 32:
-                boardarray[21][33] = '1'; 
+                boardarray[22][33] = '3'; 
                 break;
             case 33:
-                boardarray[21][29] = '1'; 
+                boardarray[22][29] = '3'; 
                 break;
             case 34:
-                boardarray[21][25] = '1'; 
+                boardarray[22][25] = '3'; 
                 break;
             case 35:
-                boardarray[21][21] = '1'; 
+                boardarray[22][21] = '3'; 
                 break;
             case 36:
-                boardarray[21][17] = '1'; 
+                boardarray[22][17] = '3'; 
                 break;
             case 37:
-                boardarray[21][13] = '1'; 
+                boardarray[22][13] = '3'; 
                 break;
             case 38:
-                boardarray[21][9] = '1'; 
+                boardarray[22][9] = '3'; 
                 break;
             case 39:
-                boardarray[21][5] = '1'; 
+                boardarray[22][5] = '3'; 
                 break;
         }
     }
@@ -1130,124 +1130,124 @@ void Game::updatepositions(){
         position = players[3].getPosition();
         switch(position){
             case 0:
-                boardarray[21][1] = '1';
+                boardarray[21][1] = '4';
                 break;
             case 1:
-                boardarray[19][1] = '1';
+                boardarray[19][1] = '4';
                 break;
             case 2:
-                boardarray[17][1] = '1';
+                boardarray[17][1] = '4';
                 break;
             case 3:
-                boardarray[15][1] = '1';
+                boardarray[15][1] = '4';
                 break;
             case 4:
-                boardarray[13][1] = '1';
+                boardarray[13][1] = '4';
                 break;
             case 5:
-                boardarray[11][1] = '1';
+                boardarray[11][1] = '4';
                 break;
             case 6:
-                boardarray[9][1] = '1'; 
+                boardarray[9][1] = '4'; 
                 break;
             case 7:
-                boardarray[7][1] = '1'; 
+                boardarray[7][1] = '4'; 
                 break;
             case 8:
-                boardarray[5][1] = '1'; 
+                boardarray[5][1] = '4'; 
                 break;
             case 9:
-                boardarray[3][1] = '1'; 
+                boardarray[3][1] = '4'; 
                 break;
             case 10:
-                boardarray[1][1] = '1'; 
+                boardarray[1][1] = '4'; 
                 break;
             case 11:
-                boardarray[1][5] = '1'; 
+                boardarray[1][5] = '4'; 
                 break;
             case 12:
-                boardarray[1][9] = '1'; 
+                boardarray[1][9] = '4'; 
                 break;
             case 13:
-                boardarray[1][13] = '1'; 
+                boardarray[1][13] = '4'; 
                 break;
             case 14:
-                boardarray[1][17] = '1'; 
+                boardarray[1][17] = '4'; 
                 break;
             case 15:
-                boardarray[1][21] = '1'; 
+                boardarray[1][21] = '4'; 
                 break;
             case 16:
-                boardarray[1][25] = '1'; 
+                boardarray[1][25] = '4'; 
                 break;
             case 17:
-                boardarray[1][29] = '1'; 
+                boardarray[1][29] = '4'; 
                 break;
             case 18:
-                boardarray[1][33] = '1'; 
+                boardarray[1][33] = '4'; 
                 break;
             case 19:
-                boardarray[1][37] = '1'; 
+                boardarray[1][37] = '4'; 
                 break;
             case 20:
-                boardarray[1][41] = '1'; 
+                boardarray[1][41] = '4'; 
                 break;
             case 21:
-                boardarray[3][41] = '1'; 
+                boardarray[3][41] = '4'; 
                 break;
             case 22:
-                boardarray[5][41] = '1'; 
+                boardarray[5][41] = '4'; 
                 break;
             case 23:
-                boardarray[7][41] = '1'; 
+                boardarray[7][41] = '4'; 
                 break;
             case 24:
-                boardarray[9][41] = '1'; 
+                boardarray[9][41] = '4'; 
                 break;
             case 25:
-                boardarray[11][41] = '1'; 
+                boardarray[11][41] = '4'; 
                 break;
             case 26:
-                boardarray[13][41] = '1'; 
+                boardarray[13][41] = '4'; 
                 break;
             case 27:
-                boardarray[15][41] = '1'; 
+                boardarray[15][41] = '4'; 
                 break;
             case 28:
-                boardarray[17][41] = '1'; 
+                boardarray[17][41] = '4'; 
                 break;
             case 29:
-                boardarray[19][41] = '1'; 
+                boardarray[19][41] = '4'; 
                 break;
             case 30:
-                boardarray[21][41] = '1'; 
+                boardarray[21][41] = '4'; 
                 break;
             case 31:
-                boardarray[21][37] = '1'; 
+                boardarray[21][37] = '4'; 
                 break;
             case 32:
-                boardarray[21][33] = '1'; 
+                boardarray[21][33] = '4'; 
                 break;
             case 33:
-                boardarray[21][29] = '1'; 
+                boardarray[21][29] = '4'; 
                 break;
             case 34:
-                boardarray[21][25] = '1'; 
+                boardarray[21][25] = '4'; 
                 break;
             case 35:
-                boardarray[21][21] = '1'; 
+                boardarray[21][21] = '4'; 
                 break;
             case 36:
-                boardarray[21][17] = '1'; 
+                boardarray[21][17] = '4'; 
                 break;
             case 37:
-                boardarray[21][13] = '1'; 
+                boardarray[21][13] = '4'; 
                 break;
             case 38:
-                boardarray[21][9] = '1'; 
+                boardarray[21][9] = '4'; 
                 break;
             case 39:
-                boardarray[21][5] = '1'; 
+                boardarray[21][5] = '4'; 
                 break;
         }
     }
@@ -1256,7 +1256,7 @@ void Game::updatepositions(){
 
 void Game::checkgame(){
     /* Need to make a function that checks for game over... */
-    
+
 }
 
 /* Assistor functions to the Game Class */
