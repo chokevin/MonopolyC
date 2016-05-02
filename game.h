@@ -39,7 +39,9 @@ public:
 
     void moveplayer();
     void gotojail();
-    void maketrade();
+    void maketrade(int player);
+    string findproperty(int input);
+    int propertynumber(int input);
     /* This function rolls the dice and returns the amount of space the player moves 
        It uses the sleep function in order to offset the random function that uses the
        the time variable for randomness.*/
@@ -89,9 +91,13 @@ private:
     int counter;
     int auctionmoney;
     int tax;
+    int numplayers;
 
 };
 
 /* Functions to perform basic housekeeping for the menus */
 void makeline();
+void fourplayers(int turn);
+void threeplayers(int turn);
+void twoplayers(int turn);
 

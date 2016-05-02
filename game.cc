@@ -35,7 +35,6 @@ void Game::init_game(){
     cout << "Initializing Game" << endl;
     makeline();
     
-    int numplayers;
 
     // ID 1 = Property
     // ID 2 = Railroad
@@ -228,15 +227,34 @@ void Game::moveplayer(){
 }
 
 void Game::init_trade(){
-    /*Haven't coded this part yet */
-	cout << "Initializing Trade";
-    cout << "Who would you like to trade with?" << endl;
+
+    int n = turn%players.size();
+    int input;
+	cout << "Initializing Trade" << endl;
     makeline();
-
-    /* Design the while loop to display the choices between players 1 - 4. This varies depending on how many players are playing. */
-
-    cout << "Trading with Player" << endl;
-    maketrade();
+    cout << "Who would you like to trade with?" << endl;
+    switch(numplayers){
+    case 1:
+        cout << "Wait what the hell are you doing playing with one player... This isn't Monopoly" << endl;
+        break;
+    case 2:
+        twoplayers(n);
+        break;
+    case 3:
+        threeplayers(n);
+        break;
+    case 4:
+        fourplayers(n);
+        break;
+    }
+    cout << "Player ";
+    cin >> input;
+    if(input > numplayers){
+        cout << "There isn't that many players... Who are you trading with?" << endl;
+        init_trade();
+    }
+    cout << "Trading with Player " << input << endl;
+    maketrade(input);
 }
 
 void Game::buyhouse(){
@@ -374,6 +392,23 @@ void Game::checkproperties(){
     }
 }
 
+string Game::findproperty(int input){
+    int owner;
+    int counter = 1;
+    int n = turn%players.size();
+    for(int i = 0; i < board.size(); i++){
+        owner = board[i].getOwner();
+        if(owner == n+1){
+            counter++;
+        }
+        if(counter == input){
+            return board[i].getName();
+        }
+
+    }  
+    return "You don't have a property?";  
+}
+
 void Game::propertytile(){
     int n = turn%players.size();
         /* This is the code to handle when the player lands on a property tile */
@@ -438,40 +473,50 @@ void Game::chancetile(){
         case 0:
             cout << "You landed on Chance!... You get $200!" << endl;
             players[n].addCash(200);
+            break;
         case 1:
             cout << "You landed on Chance!... You get sent to Jail!" << endl;
             players[n].editPosition(19);
             players[n].editJail(true);
+            break;
         case 2:
             cout << "You landed on Chance!... You get a free pass to Go! (also $200)" << endl;
             players[n].editPosition(0);
             players[n].addCash(200);
+            break;
         case 3:
             cout << "You landed on Chance!... move to Reading Railroad" << endl;
             if(players[n].getPosition() > 5){
                 players[n].addCash(200);
                 players[n].editPosition(5);
             }
+            break;
 
         case 4:
             cout << "You landed on Chance!... Nothing happens... Better support the developers for more updates!" << endl;
+            break;
         case 5:
             cout << "You landed on Chance!... You get $50!" << endl;
             players[n].addCash(50);
+            break;
         case 6:
             cout << "You landed on Chance!... You get $10!" << endl;
             players[n].addCash(10);
+            break;
         case 7:
             cout << "You landed on Chance!... Move to Broadway!" << endl;
             players[n].editPosition(39);
+            break;
         case 8:
             cout << "You landed on Chance!... Move to Income Tax!" << endl;
             players[n].editPosition(4);
             cout << "Lol Bro you landed on chance!... But since this is the free version give us $200!" << endl;
             players[n].minusCash(200);
+            break;
         case 9:
             cout << "You landed on Chance!... You pay $5 to support the developers!... It would be nice if that was true..." << endl;
             players[n].minusCash(5);
+            break;
     }
 
 
@@ -561,17 +606,25 @@ void Game::jailcheck(){
     }
 }
 
-void Game::maketrade(){ 
+void Game::maketrade(int player){ 
     
-    /* Haven't completed this function yet */
-
-    char input;
+    string name;
+    int number;
+    int input;
+    int input2;
     cout << "Which property would you like to trade? (Choose from 1 - " << players[turn%players.size()].getproperties() << ")" << endl;
     makeline();
     checkproperties();
-    //cin << input;
-    cout << "Traded to Player" << endl;
-
+    cin >> input;
+    name = findproperty(input);
+    number = propertynumber(input);
+    cout << "How much are you trading it for?" << endl;
+    cin >> input2;
+    cout << "\033[2J\033[1;1H";
+    cout << "Traded " << name <<" to Player " << player << " for $" << input2 << endl;
+    board[number].editOwner(player);
+    players[turn%players.size()].addCash(input2);
+    players[player-1].minusCash(input2);
 }
 
 int Game::checkrailroads(){
@@ -600,6 +653,23 @@ int Game::checkutilities(){
     return check;
 }
 
+int Game::propertynumber(int input){
+    int owner;
+    int counter = 1;
+    int n = turn%players.size();
+    for(int i = 0; i < board.size(); i++){
+        owner = board[i].getOwner();
+        if(owner == n+1){
+            counter++;
+        }
+        if(counter == input){
+            return i;
+        }
+
+    }  
+    return -1;
+}
+
 void Game::displayboard(){
     /* Have to make display function */
 }
@@ -608,4 +678,51 @@ void Game::displayboard(){
 
 void makeline(){
     cout << "--------------------------------------------------------------------" << endl;
+}
+
+void twoplayers(int turn){
+    if(turn){
+        cout << "Player 1" << endl;
+    }
+    else{
+        cout << "Player 2" << endl;
+    }
+}
+
+void threeplayers(int turn){
+    if(turn == 1){       
+        cout << "Player 1" << endl;
+        cout << "Player 3" << endl;
+    }
+    else if(turn == 2){
+        cout << "Player 1" << endl;
+        cout << "Player 2" << endl;
+    }
+    else{
+        cout << "Player 2" << endl;
+        cout << "Player 3" << endl;
+    }
+}
+
+void fourplayers(int turn){
+    if(turn == 1){       
+        cout << "Player 1" << endl;
+        cout << "Player 3" << endl;
+        cout << "Player 4" << endl;
+    }
+    else if(turn == 2){
+        cout << "Player 1" << endl;
+        cout << "Player 2" << endl;
+        cout << "Player 4" << endl;
+    }
+    else if(turn== 3){
+        cout << "Player 1" << endl;
+        cout << "Player 2" << endl;
+        cout << "Player 3" << endl;
+    }
+    else{
+        cout << "Player 2" << endl;
+        cout << "Player 3" << endl;
+        cout << "Player 4" << endl;
+    }
 }
