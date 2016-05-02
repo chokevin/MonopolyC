@@ -55,7 +55,7 @@ void Game::init_game(){
     for(int i = 0; i < numplayers; i++){
     	players[i].editCash(1500);
     }
-    
+    cout << "\033[2J\033[1;1H";
     while(1){
         menu();
     }
@@ -590,6 +590,11 @@ void Game::init_to_empty(){
     auctionmoney = 0;
     tax = 0;
     counter = 0;
+    for(int i = 0; i < 44; i++){
+        for(int j = 0; j < 44; j++){
+            boardarray[i][j] = ' ';
+        }
+    }
 }
 
 void Game::displaymoney(){
@@ -671,7 +676,67 @@ int Game::propertynumber(int input){
 }
 
 void Game::displayboard(){
-    /* Have to make display function */
+    /* Display function is sorta working sorta */
+    int i;
+    for(i = 0; i<23; i++){
+        boardarray[i][0] = '|';
+        boardarray[i][44] = '|';
+        boardarray[i][4] = '|';
+        boardarray[i][40] = '|';
+    }
+    for(i = 0; i <44; i++){
+        boardarray[0][i] = '_';
+        boardarray[2][i] = '_';
+        boardarray[20][i] = '_';
+        boardarray[22][i] = '_';
+    }
+       // boardarray[20][22] = '|';
+        //boardarray[22][22] = '|';
+
+    for(i = 1; i<4; i++){
+        boardarray[4][i] = '_';
+        boardarray[6][i] = '_';
+        boardarray[8][i] = '_';
+        boardarray[10][i] = '_';
+        boardarray[12][i] = '_';
+        boardarray[14][i] = '_';
+        boardarray[16][i] = '_';
+        boardarray[18][i] = '_';
+        boardarray[20][i] = '_';
+        boardarray[22][i] = '_';
+    }
+    for(int i = 40; i < 44; i++){
+        boardarray[4][i] = '_';
+        boardarray[6][i] = '_';
+        boardarray[8][i] = '_';
+        boardarray[10][i] = '_';
+        boardarray[12][i] = '_';
+        boardarray[14][i] = '_';
+        boardarray[16][i] = '_';
+        boardarray[18][i] = '_';
+        boardarray[20][i] = '_';
+        boardarray[22][i] = '_';        
+    }
+    for(i = 8; i < 40; i+=4){ 
+        boardarray[1][i] = '|';
+        boardarray[21][i] = '|';
+    }
+
+    updatepositions();
+
+    for(int j = 0; j<23; j++){
+        for(int k = 0; k < 45; k++){
+            cout << boardarray[j][k];
+        }
+        cout << endl;
+    }
+
+}
+
+void Game::updatepositions(){
+
+    /* Need to make a function which updates the position of those in the array... */
+    
 }
 
 /* Assistor functions to the Game Class */

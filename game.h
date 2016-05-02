@@ -54,6 +54,7 @@ public:
 
     void displaymoney();
     void displayboard();
+    void updatepositions();
 
     /* Tile Functions 
     These functions determine how to interact with property tiles */
@@ -92,6 +93,7 @@ private:
     int auctionmoney;
     int tax;
     int numplayers;
+    char boardarray[23][45];
 
 };
 
