@@ -64,6 +64,7 @@ void Player::editPosition(int Position){
     position += Position;
     if(position > 39){
        position = position % 40; 
+       cout << "You passed Go!" << endl;
        addCash(200);
     }
     

@@ -17,7 +17,7 @@ using namespace std;
 
 /* As a general rule... the n variable is used find the correct index of which player's turn it is. 
    n+1 is used because although players[0] refers to player 1 we need to display +1 to get the actual player number. index goes from 0-3 | player number goes from 1-4
-*/
+   */
 
 /* Constructor and deconstructor for the game class */
 Game::Game(){
@@ -30,11 +30,11 @@ Game::~Game(){
 
 /* Initializing Functions */
 void Game::init_game(){
-	board.resize(MAXSIZE);
+    board.resize(MAXSIZE);
     cout << "\033[2J\033[1;1H";
     cout << "Initializing Game" << endl;
     makeline();
-    
+
 
     // ID 1 = Property
     // ID 2 = Railroad
@@ -47,21 +47,21 @@ void Game::init_game(){
     // ID 9 = Tax
     // ID 10 = Go to Jail
 
-    
+
     init_board();
     cout << "How many players will be playing? (1-4 players):";
     cin >> numplayers;
     players.resize(numplayers);
     for(int i = 0; i < numplayers; i++){
-    	players[i].editCash(1500);
+        players[i].editCash(1500);
     }
     cout << "\033[2J\033[1;1H";
     while(1){
         menu();
     }
-    
+
 }
- 
+
 void Game::init_board(){
 
     board[0].init(4, 0, 0, "Go");
@@ -104,39 +104,39 @@ void Game::init_board(){
     board[37].init(1, 350, 35, "Park Place");
     board[38].init(9, 100, 0, "Luxury Tax");
     board[39].init(1, 400, 50, "Boardwalk");
-    
+
 }
 
 void Game::menu(){
     char Action;
     int n = (turn%players.size());
-    
+
     displayboard();
     jailcheck();
     cout << "It is Player " << (turn%players.size())+1 << "'s turn" << endl;    
     displaymoney();
-     
+
     cout << "You are at position " << players[n].getPosition() << " which is " << board[players[n].getPosition()].getName() << endl;
     makeline();
     cout << "What actions would you like to take?" << endl;
-   	cout << "(R)oll the dice" << endl;	
+    cout << "(R)oll the dice" << endl;	
     cout << "(C)heck owned properties" << endl;
-	cout << "(T)rade a property" << endl;    
-	cout << "(B)uy a house" << endl;    
-	cout << "(S)ell a house" << endl;    	
-	cout << "(Q)uit" << endl;
-	cin >> Action;
-	selection(Action);
+    cout << "(T)rade a property" << endl;    
+    cout << "(B)uy a house" << endl;    
+    cout << "(S)ell a house" << endl;    	
+    cout << "(Q)uit" << endl;
+    cin >> Action;
+    selection(Action);
 }
 
 
 void Game::selection(char Action){
-	 while(true){
+    while(true){
         switch(Action){
             case 'r':
                 cout << "Rolling the Dice" << endl;
                 moveplayer();
-              	menu();
+                menu();
                 break;
             case 't':
                 cout << "Trading a Property" << endl;
@@ -165,25 +165,25 @@ void Game::selection(char Action){
                 cin >> Action;
                 break;
         }
-     }
+    }
 
 }
 
 
 void Game::moveplayer(){
-	int move;
+    int move;
     cout << "\033[2J\033[1;1H";
-	move = roll_dice();
+    move = roll_dice();
     int n = turn%players.size();
     players[n].editPosition(move);
     int check = board[players[n].getPosition()].getID();
     cout << "Player " << n+1 << " landed on " << board[players[n].getPosition()].getName() << endl;
     if(check == 1){
-        
+
         propertytile();
     }
     else if(check == 2){
-       /* This is the code that handles when the player lands on a railroad tile */
+        /* This is the code that handles when the player lands on a railroad tile */
         railroadtile();
 
     }
@@ -191,14 +191,14 @@ void Game::moveplayer(){
         /* This is the code that handles when the player lands on a utility tile */
         utilitytile();
     }
-   // else if(check == 4){
-        /* This is the code that handles when the player lands on the Go title...?*/
-     //   gotile();
+    // else if(check == 4){
+    /* This is the code that handles when the player lands on the Go title...?*/
+    //   gotile();
     //}
     //else if(check == 5){
-        /* This is the code that handles when the player lands on the Jail tile */
-      //  jailtile();
-   // }
+    /* This is the code that handles when the player lands on the Jail tile */
+    //  jailtile();
+    // }
     else if(check == 6){
         /* this is the code that handles when the player lands on the free parking tile */
         parkingtile();
@@ -230,22 +230,22 @@ void Game::init_trade(){
 
     int n = turn%players.size();
     int input;
-	cout << "Initializing Trade" << endl;
+    cout << "Initializing Trade" << endl;
     makeline();
     cout << "Who would you like to trade with?" << endl;
     switch(numplayers){
-    case 1:
-        cout << "Wait what the hell are you doing playing with one player... This isn't Monopoly" << endl;
-        break;
-    case 2:
-        twoplayers(n);
-        break;
-    case 3:
-        threeplayers(n);
-        break;
-    case 4:
-        fourplayers(n);
-        break;
+        case 1:
+            cout << "Wait what the hell are you doing playing with one player... This isn't Monopoly" << endl;
+            break;
+        case 2:
+            twoplayers(n);
+            break;
+        case 3:
+            threeplayers(n);
+            break;
+        case 4:
+            fourplayers(n);
+            break;
     }
     cout << "Player ";
     cin >> input;
@@ -259,7 +259,7 @@ void Game::init_trade(){
 
 void Game::buyhouse(){
     /* Haven't coded this part yet either */
-	cout << "Currently the free version doesn't support buying houses... Support the developers" << endl;
+    cout << "Currently the free version doesn't support buying houses... Support the developers" << endl;
 }
 
 void Game::sellhouse(){
@@ -271,7 +271,7 @@ int Game::roll_dice(){
     srand(time(0));
     dice1 = rand()%6+1;
     cout << "Dice 1 roll:" << dice1 << endl;
-  	sleep(1);
+    sleep(1);
     dice2 = rand()%6+1;
     cout << "Dice 2 roll:" << dice2 << endl;
     if(dice1 == dice2){
@@ -287,8 +287,8 @@ bool Game::buyproperty(){
     char input;
     int n = (turn%players.size());
     cout << "Buying the property" << endl;
-        cout << "Would you like to buy " << board[players[n].getPosition()].getName() << "? (y or n):";
-        cin >> input; 
+    cout << "Would you like to buy " << board[players[n].getPosition()].getName() << "? (y or n):";
+    cin >> input; 
     if( input == 'y'){
         players[n].minusCash(board[players[n].getPosition()].getPrice());
         board[players[n].getPosition()].editOwner(n+1);
@@ -304,11 +304,11 @@ bool Game::buyproperty(){
 }
 
 bool Game::buyrailroad(){
-        char input;
+    char input;
     int n = (turn%players.size());
     cout << "Buying the railroad" << endl;
-        cout << "Would you like to buy " << board[players[n].getPosition()].getName() << "? (y or n):";
-        cin >> input; 
+    cout << "Would you like to buy " << board[players[n].getPosition()].getName() << "? (y or n):";
+    cin >> input; 
     if( input == 'y'){
         players[n].minusCash(board[players[n].getPosition()].getPrice());
         board[players[n].getPosition()].editOwner(n+1);
@@ -327,8 +327,8 @@ bool Game::buyutility(){
     char input;
     int n = (turn%players.size());
     cout << "Buying the utility" << endl;
-        cout << "Would you like to buy " << board[players[n].getPosition()].getName() << "? (y or n):";
-        cin >> input; 
+    cout << "Would you like to buy " << board[players[n].getPosition()].getName() << "? (y or n):";
+    cin >> input; 
     if( input == 'y'){
         players[n].minusCash(board[players[n].getPosition()].getPrice());
         board[players[n].getPosition()].editOwner(n+1);
@@ -373,7 +373,7 @@ void Game::auctionproperty(){
 
 bool Game::bidproperty(int player){
 
-return true;
+    return true;
 
 }
 
@@ -411,7 +411,7 @@ string Game::findproperty(int input){
 
 void Game::propertytile(){
     int n = turn%players.size();
-        /* This is the code to handle when the player lands on a property tile */
+    /* This is the code to handle when the player lands on a property tile */
     if(board[players[(turn%players.size())].getPosition()].getOwner() == 0){
         bool flag = buyproperty();
         if(!flag){
@@ -427,8 +427,8 @@ void Game::propertytile(){
 }
 
 void Game::railroadtile(){
-        int n = turn%players.size();
-        /* This is the code to handle when the player lands on a property tile */
+    int n = turn%players.size();
+    /* This is the code to handle when the player lands on a property tile */
     if(board[players[(turn%players.size())].getPosition()].getOwner() == 0){
         bool flag = buyrailroad();
         if(!flag){
@@ -457,17 +457,17 @@ void Game::railroadtile(){
 }
 
 void Game::chancetile(){
-    
+
     /* Currently this is the function for chance... new updates have been added to increase the amount of options for chance. 
-    The switch statement allows for an easy way to increase the amount of chance cards... */
-    
+       The switch statement allows for an easy way to increase the amount of chance cards... */
+
     int choice;
     srand(time(0));
     choice = rand()%10;
     int n = turn%players.size();
     /* This switch statement chooses at random the chance card that is selected for the player that lands on it. This can be either increased
-    or decreased very simply by adding more case choices. Currently can be further developed.
-    */\
+       or decreased very simply by adding more case choices. Currently can be further developed.
+       */\
 
     switch(choice){
         case 0:
@@ -476,19 +476,19 @@ void Game::chancetile(){
             break;
         case 1:
             cout << "You landed on Chance!... You get sent to Jail!" << endl;
-            players[n].editPosition(19);
+            players[n].changePosition(19);
             players[n].editJail(true);
             break;
         case 2:
             cout << "You landed on Chance!... You get a free pass to Go! (also $200)" << endl;
-            players[n].editPosition(0);
+            players[n].changePosition(0);
             players[n].addCash(200);
             break;
         case 3:
             cout << "You landed on Chance!... move to Reading Railroad" << endl;
             if(players[n].getPosition() > 5){
                 players[n].addCash(200);
-                players[n].editPosition(5);
+                players[n].changePosition(5);
             }
             break;
 
@@ -505,11 +505,11 @@ void Game::chancetile(){
             break;
         case 7:
             cout << "You landed on Chance!... Move to Broadway!" << endl;
-            players[n].editPosition(39);
+            players[n].changePosition(39);
             break;
         case 8:
             cout << "You landed on Chance!... Move to Income Tax!" << endl;
-            players[n].editPosition(4);
+            players[n].changePosition(4);
             cout << "Lol Bro you landed on chance!... But since this is the free version give us $200!" << endl;
             players[n].minusCash(200);
             break;
@@ -532,7 +532,7 @@ void Game::parkingtile(){
 
 void Game::utilitytile(){
     int n = turn%players.size();
-        /* This is the code to handle when the player lands on a property tile */
+    /* This is the code to handle when the player lands on a property tile */
     if(board[players[(turn%players.size())].getPosition()].getOwner() == 0){
         bool flag = buyutility();
         if(!flag){
@@ -578,7 +578,7 @@ void Game::jailtile(){
 }
 
 void Game::chesttile(){
-    
+
     /*This can be updated to include many other chest cards if we like */
 
     cout << "You landed on Community Chest!... There's only one Community Chest card for now... You get $20!" << endl;
@@ -590,8 +590,8 @@ void Game::init_to_empty(){
     auctionmoney = 0;
     tax = 0;
     counter = 0;
-    for(int i = 0; i < 44; i++){
-        for(int j = 0; j < 44; j++){
+    for(int i = 0; i < 23; i++){
+        for(int j = 0; j < 45; j++){
             boardarray[i][j] = ' ';
         }
     }
@@ -612,7 +612,7 @@ void Game::jailcheck(){
 }
 
 void Game::maketrade(int player){ 
-    
+
     string name;
     int number;
     int input;
@@ -678,20 +678,26 @@ int Game::propertynumber(int input){
 void Game::displayboard(){
     /* Display function is sorta working sorta */
     int i;
+    /* resets array */
+    for(int i = 0; i < 23; i++){
+        for(int j = 0; j < 45; j++){
+            boardarray[i][j] = ' ';
+        }
+    }
     for(i = 0; i<23; i++){
         boardarray[i][0] = '|';
         boardarray[i][44] = '|';
         boardarray[i][4] = '|';
         boardarray[i][40] = '|';
     }
-    for(i = 0; i <44; i++){
+    for(i = 1; i <44; i++){
         boardarray[0][i] = '_';
         boardarray[2][i] = '_';
         boardarray[20][i] = '_';
         boardarray[22][i] = '_';
     }
-       // boardarray[20][22] = '|';
-        //boardarray[22][22] = '|';
+    // boardarray[20][22] = '|';
+    //boardarray[22][22] = '|';
 
     for(i = 1; i<4; i++){
         boardarray[4][i] = '_';
@@ -721,6 +727,8 @@ void Game::displayboard(){
         boardarray[1][i] = '|';
         boardarray[21][i] = '|';
     }
+    boardarray[0][44] = ' ';
+    boardarray[0][0] = ' ';
 
     updatepositions();
 
@@ -735,8 +743,513 @@ void Game::displayboard(){
 
 void Game::updatepositions(){
 
-    /* Need to make a function which updates the position of those in the array... */
-    
+    /* Finished Player 1 update position lol jesus this is hard */
+    int position;
+
+    /* Update on Player 1 Position */
+    position = players[0].getPosition();
+    switch(position){
+        case 0:
+            boardarray[21][1] = '1';
+            break;
+        case 1:
+            boardarray[19][1] = '1';
+            break;
+        case 2:
+            boardarray[17][1] = '1';
+            break;
+        case 3:
+            boardarray[15][1] = '1';
+            break;
+        case 4:
+            boardarray[13][1] = '1';
+            break;
+        case 5:
+            boardarray[11][1] = '1';
+            break;
+        case 6:
+            boardarray[9][1] = '1'; 
+            break;
+        case 7:
+            boardarray[7][1] = '1'; 
+            break;
+        case 8:
+            boardarray[5][1] = '1'; 
+            break;
+        case 9:
+            boardarray[3][1] = '1'; 
+            break;
+        case 10:
+            boardarray[1][1] = '1'; 
+            break;
+        case 11:
+            boardarray[1][5] = '1'; 
+            break;
+        case 12:
+            boardarray[1][9] = '1'; 
+            break;
+        case 13:
+            boardarray[1][13] = '1'; 
+            break;
+        case 14:
+            boardarray[1][17] = '1'; 
+            break;
+        case 15:
+            boardarray[1][21] = '1'; 
+            break;
+        case 16:
+            boardarray[1][25] = '1'; 
+            break;
+        case 17:
+            boardarray[1][29] = '1'; 
+            break;
+        case 18:
+            boardarray[1][33] = '1'; 
+            break;
+        case 19:
+            boardarray[1][37] = '1'; 
+            break;
+        case 20:
+            boardarray[1][41] = '1'; 
+            break;
+        case 21:
+            boardarray[3][41] = '1'; 
+            break;
+        case 22:
+            boardarray[5][41] = '1'; 
+            break;
+        case 23:
+            boardarray[7][41] = '1'; 
+            break;
+        case 24:
+            boardarray[9][41] = '1'; 
+            break;
+        case 25:
+            boardarray[11][41] = '1'; 
+            break;
+        case 26:
+            boardarray[13][41] = '1'; 
+            break;
+        case 27:
+            boardarray[15][41] = '1'; 
+            break;
+        case 28:
+            boardarray[17][41] = '1'; 
+            break;
+        case 29:
+            boardarray[19][41] = '1'; 
+            break;
+        case 30:
+            boardarray[21][41] = '1'; 
+            break;
+        case 31:
+            boardarray[21][37] = '1'; 
+            break;
+        case 32:
+            boardarray[21][33] = '1'; 
+            break;
+        case 33:
+            boardarray[21][29] = '1'; 
+            break;
+        case 34:
+            boardarray[21][25] = '1'; 
+            break;
+        case 35:
+            boardarray[21][21] = '1'; 
+            break;
+        case 36:
+            boardarray[21][17] = '1'; 
+            break;
+        case 37:
+            boardarray[21][13] = '1'; 
+            break;
+        case 38:
+            boardarray[21][9] = '1'; 
+            break;
+        case 39:
+            boardarray[21][5] = '1'; 
+            break;
+    }
+    /* Update on Player 2 Position */
+    if(numplayers >= 2){
+        position = players[1].getPosition();
+        switch(position){
+            case 0:
+                boardarray[21][2] = '2';
+                break;
+            case 1:
+                boardarray[19][2] = '2';
+                break;
+            case 2:
+                boardarray[17][2] = '2';
+                break;
+            case 3:
+                boardarray[15][1] = '2';
+                break;
+            case 4:
+                boardarray[13][1] = '2';
+                break;
+            case 5:
+                boardarray[11][1] = '2';
+                break;
+            case 6:
+                boardarray[9][1] = '2'; 
+                break;
+            case 7:
+                boardarray[7][1] = '2'; 
+                break;
+            case 8:
+                boardarray[5][1] = '2'; 
+                break;
+            case 9:
+                boardarray[3][1] = '2'; 
+                break;
+            case 10:
+                boardarray[1][1] = '2'; 
+                break;
+            case 11:
+                boardarray[1][5] = '2'; 
+                break;
+            case 12:
+                boardarray[1][9] = '2'; 
+                break;
+            case 13:
+                boardarray[1][13] = '2'; 
+                break;
+            case 14:
+                boardarray[1][17] = '2'; 
+                break;
+            case 15:
+                boardarray[1][21] = '2'; 
+                break;
+            case 16:
+                boardarray[1][25] = '2'; 
+                break;
+            case 17:
+                boardarray[1][29] = '2'; 
+                break;
+            case 18:
+                boardarray[1][33] = '2'; 
+                break;
+            case 19:
+                boardarray[1][37] = '2'; 
+                break;
+            case 20:
+                boardarray[1][41] = '2'; 
+                break;
+            case 21:
+                boardarray[3][41] = '2'; 
+                break;
+            case 22:
+                boardarray[5][41] = '2'; 
+                break;
+            case 23:
+                boardarray[7][41] = '2'; 
+                break;
+            case 24:
+                boardarray[9][41] = '2'; 
+                break;
+            case 25:
+                boardarray[11][41] = '2'; 
+                break;
+            case 26:
+                boardarray[13][41] = '2'; 
+                break;
+            case 27:
+                boardarray[15][41] = '2'; 
+                break;
+            case 28:
+                boardarray[17][41] = '2'; 
+                break;
+            case 29:
+                boardarray[19][41] = '2'; 
+                break;
+            case 30:
+                boardarray[21][41] = '2'; 
+                break;
+            case 31:
+                boardarray[21][37] = '2'; 
+                break;
+            case 32:
+                boardarray[21][33] = '2'; 
+                break;
+            case 33:
+                boardarray[21][29] = '2'; 
+                break;
+            case 34:
+                boardarray[21][25] = '2'; 
+                break;
+            case 35:
+                boardarray[21][21] = '2'; 
+                break;
+            case 36:
+                boardarray[21][17] = '2'; 
+                break;
+            case 37:
+                boardarray[21][13] = '2'; 
+                break;
+            case 38:
+                boardarray[21][9] = '2'; 
+                break;
+            case 39:
+                boardarray[21][5] = '2'; 
+                break;
+        }    
+    }
+    /* Update on Player 3 Position */
+    if(numplayers >= 3){
+        position = players[2].getPosition();
+        switch(position){
+            case 0:
+                boardarray[21][1] = '1';
+                break;
+            case 1:
+                boardarray[19][1] = '1';
+                break;
+            case 2:
+                boardarray[17][1] = '1';
+                break;
+            case 3:
+                boardarray[15][1] = '1';
+                break;
+            case 4:
+                boardarray[13][1] = '1';
+                break;
+            case 5:
+                boardarray[11][1] = '1';
+                break;
+            case 6:
+                boardarray[9][1] = '1'; 
+                break;
+            case 7:
+                boardarray[7][1] = '1'; 
+                break;
+            case 8:
+                boardarray[5][1] = '1'; 
+                break;
+            case 9:
+                boardarray[3][1] = '1'; 
+                break;
+            case 10:
+                boardarray[1][1] = '1'; 
+                break;
+            case 11:
+                boardarray[1][5] = '1'; 
+                break;
+            case 12:
+                boardarray[1][9] = '1'; 
+                break;
+            case 13:
+                boardarray[1][13] = '1'; 
+                break;
+            case 14:
+                boardarray[1][17] = '1'; 
+                break;
+            case 15:
+                boardarray[1][21] = '1'; 
+                break;
+            case 16:
+                boardarray[1][25] = '1'; 
+                break;
+            case 17:
+                boardarray[1][29] = '1'; 
+                break;
+            case 18:
+                boardarray[1][33] = '1'; 
+                break;
+            case 19:
+                boardarray[1][37] = '1'; 
+                break;
+            case 20:
+                boardarray[1][41] = '1'; 
+                break;
+            case 21:
+                boardarray[3][41] = '1'; 
+                break;
+            case 22:
+                boardarray[5][41] = '1'; 
+                break;
+            case 23:
+                boardarray[7][41] = '1'; 
+                break;
+            case 24:
+                boardarray[9][41] = '1'; 
+                break;
+            case 25:
+                boardarray[11][41] = '1'; 
+                break;
+            case 26:
+                boardarray[13][41] = '1'; 
+                break;
+            case 27:
+                boardarray[15][41] = '1'; 
+                break;
+            case 28:
+                boardarray[17][41] = '1'; 
+                break;
+            case 29:
+                boardarray[19][41] = '1'; 
+                break;
+            case 30:
+                boardarray[21][41] = '1'; 
+                break;
+            case 31:
+                boardarray[21][37] = '1'; 
+                break;
+            case 32:
+                boardarray[21][33] = '1'; 
+                break;
+            case 33:
+                boardarray[21][29] = '1'; 
+                break;
+            case 34:
+                boardarray[21][25] = '1'; 
+                break;
+            case 35:
+                boardarray[21][21] = '1'; 
+                break;
+            case 36:
+                boardarray[21][17] = '1'; 
+                break;
+            case 37:
+                boardarray[21][13] = '1'; 
+                break;
+            case 38:
+                boardarray[21][9] = '1'; 
+                break;
+            case 39:
+                boardarray[21][5] = '1'; 
+                break;
+        }
+    }
+
+
+    /* Update on Player 4  Position */
+    if(numplayers == 4){
+        position = players[3].getPosition();
+        switch(position){
+            case 0:
+                boardarray[21][1] = '1';
+                break;
+            case 1:
+                boardarray[19][1] = '1';
+                break;
+            case 2:
+                boardarray[17][1] = '1';
+                break;
+            case 3:
+                boardarray[15][1] = '1';
+                break;
+            case 4:
+                boardarray[13][1] = '1';
+                break;
+            case 5:
+                boardarray[11][1] = '1';
+                break;
+            case 6:
+                boardarray[9][1] = '1'; 
+                break;
+            case 7:
+                boardarray[7][1] = '1'; 
+                break;
+            case 8:
+                boardarray[5][1] = '1'; 
+                break;
+            case 9:
+                boardarray[3][1] = '1'; 
+                break;
+            case 10:
+                boardarray[1][1] = '1'; 
+                break;
+            case 11:
+                boardarray[1][5] = '1'; 
+                break;
+            case 12:
+                boardarray[1][9] = '1'; 
+                break;
+            case 13:
+                boardarray[1][13] = '1'; 
+                break;
+            case 14:
+                boardarray[1][17] = '1'; 
+                break;
+            case 15:
+                boardarray[1][21] = '1'; 
+                break;
+            case 16:
+                boardarray[1][25] = '1'; 
+                break;
+            case 17:
+                boardarray[1][29] = '1'; 
+                break;
+            case 18:
+                boardarray[1][33] = '1'; 
+                break;
+            case 19:
+                boardarray[1][37] = '1'; 
+                break;
+            case 20:
+                boardarray[1][41] = '1'; 
+                break;
+            case 21:
+                boardarray[3][41] = '1'; 
+                break;
+            case 22:
+                boardarray[5][41] = '1'; 
+                break;
+            case 23:
+                boardarray[7][41] = '1'; 
+                break;
+            case 24:
+                boardarray[9][41] = '1'; 
+                break;
+            case 25:
+                boardarray[11][41] = '1'; 
+                break;
+            case 26:
+                boardarray[13][41] = '1'; 
+                break;
+            case 27:
+                boardarray[15][41] = '1'; 
+                break;
+            case 28:
+                boardarray[17][41] = '1'; 
+                break;
+            case 29:
+                boardarray[19][41] = '1'; 
+                break;
+            case 30:
+                boardarray[21][41] = '1'; 
+                break;
+            case 31:
+                boardarray[21][37] = '1'; 
+                break;
+            case 32:
+                boardarray[21][33] = '1'; 
+                break;
+            case 33:
+                boardarray[21][29] = '1'; 
+                break;
+            case 34:
+                boardarray[21][25] = '1'; 
+                break;
+            case 35:
+                boardarray[21][21] = '1'; 
+                break;
+            case 36:
+                boardarray[21][17] = '1'; 
+                break;
+            case 37:
+                boardarray[21][13] = '1'; 
+                break;
+            case 38:
+                boardarray[21][9] = '1'; 
+                break;
+            case 39:
+                boardarray[21][5] = '1'; 
+                break;
+        }
+    }
 }
 
 /* Assistor functions to the Game Class */
