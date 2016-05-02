@@ -113,6 +113,7 @@ void Game::menu(){
 
     displayboard();
     jailcheck();
+    checkgame();
     cout << "It is Player " << (turn%players.size())+1 << "'s turn" << endl;    
     displaymoney();
 
@@ -743,7 +744,7 @@ void Game::displayboard(){
 
 void Game::updatepositions(){
 
-    /* Finished Player 1 update position lol jesus this is hard */
+    /* Finished Player 1 and Player 2 update position lol jesus this is hard */
     int position;
 
     /* Update on Player 1 Position */
@@ -884,115 +885,115 @@ void Game::updatepositions(){
                 boardarray[17][2] = '2';
                 break;
             case 3:
-                boardarray[15][1] = '2';
+                boardarray[15][2] = '2';
                 break;
             case 4:
-                boardarray[13][1] = '2';
+                boardarray[13][2] = '2';
                 break;
             case 5:
-                boardarray[11][1] = '2';
+                boardarray[11][2] = '2';
                 break;
             case 6:
-                boardarray[9][1] = '2'; 
+                boardarray[9][2] = '2'; 
                 break;
             case 7:
-                boardarray[7][1] = '2'; 
+                boardarray[7][2] = '2'; 
                 break;
             case 8:
-                boardarray[5][1] = '2'; 
+                boardarray[5][2] = '2'; 
                 break;
             case 9:
-                boardarray[3][1] = '2'; 
+                boardarray[3][2] = '2'; 
                 break;
             case 10:
-                boardarray[1][1] = '2'; 
+                boardarray[1][2] = '2'; 
                 break;
             case 11:
-                boardarray[1][5] = '2'; 
+                boardarray[1][6] = '2'; 
                 break;
             case 12:
-                boardarray[1][9] = '2'; 
+                boardarray[1][10] = '2'; 
                 break;
             case 13:
-                boardarray[1][13] = '2'; 
+                boardarray[1][14] = '2'; 
                 break;
             case 14:
-                boardarray[1][17] = '2'; 
+                boardarray[1][18] = '2'; 
                 break;
             case 15:
-                boardarray[1][21] = '2'; 
+                boardarray[1][22] = '2'; 
                 break;
             case 16:
-                boardarray[1][25] = '2'; 
+                boardarray[1][26] = '2'; 
                 break;
             case 17:
-                boardarray[1][29] = '2'; 
+                boardarray[1][30] = '2'; 
                 break;
             case 18:
-                boardarray[1][33] = '2'; 
+                boardarray[1][34] = '2'; 
                 break;
             case 19:
-                boardarray[1][37] = '2'; 
+                boardarray[1][38] = '2'; 
                 break;
             case 20:
-                boardarray[1][41] = '2'; 
+                boardarray[1][42] = '2'; 
                 break;
             case 21:
-                boardarray[3][41] = '2'; 
+                boardarray[3][42] = '2'; 
                 break;
             case 22:
-                boardarray[5][41] = '2'; 
+                boardarray[5][42] = '2'; 
                 break;
             case 23:
-                boardarray[7][41] = '2'; 
+                boardarray[7][42] = '2'; 
                 break;
             case 24:
-                boardarray[9][41] = '2'; 
+                boardarray[9][42] = '2'; 
                 break;
             case 25:
-                boardarray[11][41] = '2'; 
+                boardarray[11][42] = '2'; 
                 break;
             case 26:
-                boardarray[13][41] = '2'; 
+                boardarray[13][42] = '2'; 
                 break;
             case 27:
-                boardarray[15][41] = '2'; 
+                boardarray[15][42] = '2'; 
                 break;
             case 28:
-                boardarray[17][41] = '2'; 
+                boardarray[17][42] = '2'; 
                 break;
             case 29:
-                boardarray[19][41] = '2'; 
+                boardarray[19][42] = '2'; 
                 break;
             case 30:
-                boardarray[21][41] = '2'; 
+                boardarray[21][42] = '2'; 
                 break;
             case 31:
-                boardarray[21][37] = '2'; 
+                boardarray[21][38] = '2'; 
                 break;
             case 32:
-                boardarray[21][33] = '2'; 
+                boardarray[21][34] = '2'; 
                 break;
             case 33:
-                boardarray[21][29] = '2'; 
+                boardarray[21][30] = '2'; 
                 break;
             case 34:
-                boardarray[21][25] = '2'; 
+                boardarray[21][26] = '2'; 
                 break;
             case 35:
-                boardarray[21][21] = '2'; 
+                boardarray[21][22] = '2'; 
                 break;
             case 36:
-                boardarray[21][17] = '2'; 
+                boardarray[21][18] = '2'; 
                 break;
             case 37:
-                boardarray[21][13] = '2'; 
+                boardarray[21][14] = '2'; 
                 break;
             case 38:
-                boardarray[21][9] = '2'; 
+                boardarray[21][10] = '2'; 
                 break;
             case 39:
-                boardarray[21][5] = '2'; 
+                boardarray[21][6] = '2'; 
                 break;
         }    
     }
@@ -1250,6 +1251,12 @@ void Game::updatepositions(){
                 break;
         }
     }
+}
+
+
+void Game::checkgame(){
+    /* Need to make a function that checks for game over... */
+    
 }
 
 /* Assistor functions to the Game Class */
