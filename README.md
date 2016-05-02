@@ -11,8 +11,8 @@ This is monopoly for C++. This was coded for UH Manoa's EE 205 (Object Oriented 
 
 ## Future Development
 
-A GUI is currently in development with the QTGui library.
-This game did not take into account when Players run out of money... This still needs to be developed.
-Also Did not account for buying and selling of houses.
-Need to work out how to mortgate properties as well.
+* A GUI is currently in development with the QTGui library.
+* This game did not take into account when Players run out of money... This still needs to be developed.
+* Also Did not account for buying and selling of houses.
+* Need to work out how to mortgate properties as well.
 
