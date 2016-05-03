@@ -24,7 +24,7 @@ public:
     /* Initializing Functions. These are the functions which initialize various parts of the game including the board, players, and trading */
     void init_trade();
     void init_board();
-     void init_game();
+    void init_game();
 
 
 
@@ -59,6 +59,7 @@ public:
 
     /* Tile Functions 
     These functions determine how to interact with property tiles */
+    void updatemonopoly();
     bool buyproperty();
     bool buyrailroad();
     bool buyutility();
@@ -86,7 +87,7 @@ public:
 private: 
     void init_to_empty();
     vector<Player> players;
-    vector <Property> board;
+    vector<Property> board;
     int turn;
     int dice1;
     int dice2; 
@@ -94,6 +95,7 @@ private:
     int auctionmoney;
     int tax;
     int numplayers;
+    int houses;
     char boardarray[23][45];
 
 };

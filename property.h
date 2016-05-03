@@ -18,8 +18,11 @@ public:
     int getHouse();
     int getOwner();
     int getPrice();
+    bool getMonopoly();
     
     void editOwner(int Owner);
+    void editHouse(int House);
+    void setMonopoly(bool Mono);
     /* the initializing of properties */
     void init(int ID, int Price, int Rent, string Name);
 

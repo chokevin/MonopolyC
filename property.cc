@@ -27,7 +27,30 @@ int Property::getID(){
 }
 
 int Property::getRent(){
-    return rent;
+    if(monopoly)
+    {
+        if(house>0)
+        {
+            if(house==1)
+            {
+                return rent*4;
+            }
+            if(house==2)
+            {
+                return rent*12;
+            }
+            if(house==3)
+            {
+                return rent*28;
+            }
+            if(house==4)
+            {
+                return rent*34;
+            }
+        }
+        else return rent*2;
+    }
+    else return rent;
 }
 
 int Property::getHouse(){
@@ -42,8 +65,20 @@ int Property::getPrice(){
     return price;
 }
 
+bool Property::getMonopoly(){
+    return monopoly;
+}
+
 void Property::editOwner(int Owner){
     owner = Owner;
+}
+
+void Property::editHouse(int House){
+    house = House;
+}
+
+void Property::setMonopoly(bool Mono){
+    monopoly = Mono;
 }
 
 

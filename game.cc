@@ -259,16 +259,72 @@ void Game::init_trade(){
     }
     cout << "Trading with Player " << input << endl;
     maketrade(input);
+    updatemonopoly();
 }
 
 void Game::buyhouse(){
-    /* Haven't coded this part yet either */
-    cout << "Currently the free version doesn't support buying houses... Support the developers" << endl;
+    int n = (turn%players.size()); //get turn player
+    int m = 0;
+    int number;
+    int input;
+    int input2;
+    string name;
+    if(players[n].getproperties()==0) cout << "You don't have any properties" <<endl;
+    else{
+        for(int b=0;b<39;b++)
+        {
+            if(board[b].getOwner()==n+1 && board[b].getMonopoly()) m++;
+        }
+        if(m==0) cout << "You don't have any monopolies" <<endl;
+        else if(houses==0) cout << "There are no houses left" <<endl;
+        else{
+            cout << "Which property would you like to buy a house for? (Choose from 1 - " << players[turn%players.size()].getproperties() << ")" << endl;
+            makeline();
+            checkproperties();
+            cin >> input;
+            name = findproperty(input);
+            number = propertynumber(input);
+            if(board[number].getHouse()!=4 && board[number].getMonopoly()) //if less than 4 houses and monopoly
+            {
+                players[n].minusCash(150);
+                board[number].editHouse(board[number].getHouse()+1);
+                cout << "A house was bought on" << name;
+                houses--;
+            }
+        }
+    }
 }
 
 void Game::sellhouse(){
-    /* Haven't coded this part yet */
-    cout << "Currently the free version doesn't support selling houses... Support the developers" << endl;
+    int n = (turn%players.size()); //get turn player
+    int m = 0;
+    int number;
+    int input;
+    int input2;
+    string name;
+    if(players[n].getproperties()==0) cout << "You don't have any properties" <<endl;
+    else{
+        for(int b=0;b<39;b++)
+        {
+            if(board[b].getOwner()==n+1 && board[b].getHouse()!=0) m++;
+        }
+        if(m==0) cout << "You don't have any properties with houses" <<endl;
+        else{
+            cout << "Which property would you like to sell a house for? (Choose from 1 - " << players[turn%players.size()].getproperties() << ")" << endl;
+            makeline();
+            checkproperties();
+            cin >> input;
+            name = findproperty(input);
+            number = propertynumber(input);
+            if(board[number].getHouse()!=0) //if more than 0 houses
+            {
+                players[n].addCash(150);
+                board[number].editHouse(board[number].getHouse()-1);
+                cout << "A house was sold on" << name;
+                houses++;
+            }
+        }
+    }
 }
 
 int Game::roll_dice(){
@@ -287,6 +343,148 @@ int Game::roll_dice(){
     return dice1+dice2;
 }    
 
+void Game::updatemonopoly(){
+    for(int b=0;b<39;b++) //for all board spaces
+    {
+        if(board[b].getID()==1)  //if property tile
+        {
+            if(board[b].getOwner()>0) //and if Property is owned by a player)
+            {
+                //
+                
+                if(b==1 || b==3)
+                {
+                    if(board[1].getOwner() == board[3].getOwner())
+                    {
+                        board[1].setMonopoly(true);
+                        board[3].setMonopoly(true);
+                    }
+                    else
+                    {
+                        board[1].setMonopoly(false);
+                        board[3].setMonopoly(false);
+                    }
+                }
+                
+                if(b==6 || b==8 || b==9)
+                {
+                    if(board[6].getOwner() == board[8].getOwner() && board[8].getOwner() == board[9].getOwner())
+                    {
+                        board[6].setMonopoly(true);
+                        board[8].setMonopoly(true);
+                        board[9].setMonopoly(true);
+                    }
+                    else
+                    {
+                        board[6].setMonopoly(false);
+                        board[8].setMonopoly(false);
+                        board[9].setMonopoly(false);
+                    }
+                }
+                
+                if(b==11 || b==13 || b==14)
+                {
+                    if(board[11].getOwner() == board[13].getOwner() && board[13].getOwner() == board[14].getOwner())
+                    {
+                        board[11].setMonopoly(true);
+                        board[13].setMonopoly(true);
+                        board[14].setMonopoly(true);
+                    }
+                    else
+                    {
+                        board[11].setMonopoly(false);
+                        board[13].setMonopoly(false);
+                        board[14].setMonopoly(false);
+                    }
+                }
+                
+                if(b==16 || b==18 || b==19)
+                {
+                    if(board[16].getOwner() == board[18].getOwner() && board[18].getOwner() == board[19].getOwner())
+                    {
+                        board[16].setMonopoly(true);
+                        board[18].setMonopoly(true);
+                        board[19].setMonopoly(true);
+                    }
+                    else
+                    {
+                        board[16].setMonopoly(false);
+                        board[18].setMonopoly(false);
+                        board[19].setMonopoly(false);
+                    }
+                }
+                
+                if(b==21 || b==23 || b==24)
+                {
+                    if(board[21].getOwner() == board[23].getOwner() && board[23].getOwner() == board[24].getOwner())
+                    {
+                        board[21].setMonopoly(true);
+                        board[23].setMonopoly(true);
+                        board[24].setMonopoly(true);
+                    }
+                    else
+                    {
+                        board[21].setMonopoly(false);
+                        board[23].setMonopoly(false);
+                        board[24].setMonopoly(false);
+                    }
+                }
+                
+                if(b==26 || b==27 || b==29)
+                {
+                    if(board[26].getOwner() == board[27].getOwner() && board[27].getOwner() == board[29].getOwner())
+                    {
+                        board[26].setMonopoly(true);
+                        board[27].setMonopoly(true);
+                        board[29].setMonopoly(true);
+                    }
+                    else
+                    {
+                        board[26].setMonopoly(false);
+                        board[27].setMonopoly(false);
+                        board[29].setMonopoly(false);
+                    }
+                }
+                
+                if(b==31 || b==32 || b==34)
+                {
+                    if(board[31].getOwner() == board[32].getOwner() && board[32].getOwner() == board[34].getOwner())
+                    {
+                        board[31].setMonopoly(true);
+                        board[32].setMonopoly(true);
+                        board[34].setMonopoly(true);
+                    }
+                    else
+                    {
+                        board[31].setMonopoly(false);
+                        board[32].setMonopoly(false);
+                        board[34].setMonopoly(false);
+                    }
+                }
+                
+                if(b==37 || b==39)
+                {
+                    if(board[37].getOwner()== board[39].getOwner())
+                    {
+                        board[37].setMonopoly(true);
+                        board[39].setMonopoly(true);
+                    }
+                    else
+                    {
+                        board[37].setMonopoly(false);
+                        board[39].setMonopoly(false);
+                    }
+                }
+                
+            }
+        }
+    }
+    
+    
+    
+    
+}
+
 bool Game::buyproperty(){
     char input;
     int n = (turn%players.size());
@@ -298,6 +496,7 @@ bool Game::buyproperty(){
         board[players[n].getPosition()].editOwner(n+1);
         cout << board[players[n].getPosition()].getName() << " was bought by Player " << n+1 << "!" << endl;
         players[n].addproperties();
+        updatemonopoly();
         return true;
     }
     else if ( input == 'n'){
@@ -373,6 +572,7 @@ void Game::auctionproperty(){
     players[n+i].minusCash(auctionmoney);
     board[players[n].getPosition()].editOwner(n);
     auctionmoney = 0;
+    updatemonopoly();
 }
 
 bool Game::bidproperty(int player){
@@ -390,7 +590,12 @@ void Game::checkproperties(){
     for(int i = 0; i < board.size(); i++){
         owner = board[i].getOwner();
         if(owner == n+1){
-            cout << "You own: " << counter << ". " << board[i].getName() << endl;
+            if(board[i].getID()==1){
+                cout << "You own: " << counter << ". " << board[i].getName() << " - It has " << board[i].getHouse() << " houses." <<endl;
+            }
+            else{
+                cout << "You own: " << counter << ". " << board[i].getName() <<endl;
+            }
             counter++;
         }
     }
@@ -560,7 +765,6 @@ void Game::utilitytile(){
 
 }
 
-
 void Game::gotojail(){
     int n = turn%players.size();
     cout << "Why you breaking the law for! GO TO JAIL PLAYER " << (n+1) << endl;
@@ -591,6 +795,7 @@ void Game::chesttile(){
 }
 
 void Game::init_to_empty(){
+    houses=32;
     auctionmoney = 0;
     tax = 0;
     counter = 0;
@@ -634,6 +839,7 @@ void Game::maketrade(int player){
     board[number].editOwner(player);
     players[turn%players.size()].addCash(input2);
     players[player-1].minusCash(input2);
+    updatemonopoly();
 }
 
 int Game::checkrailroads(){
@@ -680,7 +886,7 @@ int Game::propertynumber(int input){
 }
 
 void Game::displayboard(){
-    /* Display function is sorta working sorta */
+   /* Display function is sorta working sorta */
     int i;
     /* resets array */
     for(int i = 0; i < 23; i++){
@@ -688,6 +894,7 @@ void Game::displayboard(){
             boardarray[i][j] = ' ';
         }
     }
+    cout << "\033[1;31mMonopoly\033[0m\n";
     for(i = 0; i<23; i++){
         boardarray[i][0] = '|';
         boardarray[i][44] = '|';
@@ -700,8 +907,7 @@ void Game::displayboard(){
         boardarray[20][i] = '_';
         boardarray[22][i] = '_';
     }
-    // boardarray[20][22] = '|';
-    //boardarray[22][22] = '|';
+    
 
     for(i = 1; i<4; i++){
         boardarray[4][i] = '_';
@@ -715,7 +921,7 @@ void Game::displayboard(){
         boardarray[20][i] = '_';
         boardarray[22][i] = '_';
     }
-    for(int i = 40; i < 44; i++){
+    for(int i = 41; i < 44; i++){
         boardarray[4][i] = '_';
         boardarray[6][i] = '_';
         boardarray[8][i] = '_';
@@ -733,12 +939,69 @@ void Game::displayboard(){
     }
     boardarray[0][44] = ' ';
     boardarray[0][0] = ' ';
+  
 
     updatepositions();
 
     for(int j = 0; j<23; j++){
         for(int k = 0; k < 45; k++){
-            cout << boardarray[j][k];
+            if( (j == 3 || j == 4 || j == 5 || j == 6) && k == 40){
+                cout << "\033[1;31m" << boardarray[j][k] << "\033[0m"; 
+            }
+            else if((j == 7 || j == 8) && k == 40){
+                cout << "\033[1;37m" << boardarray[j][k] << "\033[0m";
+            }
+            else if((j == 9 || j == 10) && k == 40){
+                cout << "\033[1;31m" << boardarray[j][k] << "\033[0m";
+            }
+            else if((j == 11 || j == 12) && k == 40){
+                cout << "\033[1;37m" << boardarray[j][k] << "\033[0m";
+            }
+            else if((j == 13 || j == 14) && k == 40){
+                cout << "\033[1;33m" << boardarray[j][k] << "\033[0m";
+            }
+            else if((j == 15 || j == 16) && k == 40){
+                cout << "\033[1;33m" << boardarray[j][k] << "\033[0m";
+            }
+            else if((j == 17 || j == 18) && k == 40){
+                 cout << "\033[1;37m" << boardarray[j][k] << "\033[0m";   
+            }
+            else if(j == 19  && k == 40){
+                cout << "\033[1;33m" << boardarray[j][k] << "\033[0m";
+            }
+            else if(j == 20 && (k == 40 || k == 39 || k == 38 || k ==37 || k == 36 || k == 35 || k == 34 || k == 33 || k == 32 || k == 28 || k == 27 || k == 26 || k == 25)){
+                cout << "\033[1;32m" << boardarray[j][k] << "\033[0m";
+            }
+            else if(j == 20 && (k == 31 || k == 30 || k == 29 )){
+                cout << "\033[1;37m" << boardarray[j][k] << "\033[0m";
+            }
+            else if(j == 20 && (k == 24 || k == 23 || k == 22 || k == 21 || k == 20 || k == 19 || k == 18 || k == 17 || k == 16 || k == 11 || k == 10 || k == 9 || k == 8)){
+                cout << "\033[1;37m" << boardarray[j][k] << "\033[0m"; 
+            }
+            else if( j == 20 && (k == 15 || k == 14 || k == 13 || k == 12 || k == 7 || k == 6 || k == 5 || k == 4)){
+                cout << "\033[1;34m" << boardarray[j][k] << "\033[0m";
+            }
+            else if( (j == 19 || j == 16 || j == 15)&& k == 4 ){
+                cout << "\033[1;39m" << boardarray[j][k] << "\033[0m";
+            }
+            else if( (j == 18 || j == 17 || j == 14 || j == 13 || j == 12 || j == 11 || j == 8 || j == 7) && k == 4){
+                cout << "\033[1;37m" << boardarray[j][k] << "\033[0m";
+            }
+            else if( (j == 10 || j == 9 || j == 6 || j == 5 || j == 4|| j == 3 ) && k == 4){
+                cout << "\033[1;36m" << boardarray[j][k] << "\033[0m";
+            }
+            else if( j == 2 && (k == 4 || k == 5 || k == 6 || k == 7 || k == 8 || k == 13 || k == 14 || k == 15 ||k == 16 || k == 17 || k== 18 || k == 19 || k == 20)){
+                cout << "\033[1;35m" << boardarray[j][k] << "\033[0m";
+            }
+            else if ( j == 2 && (k == 9 || k == 10 || k == 11 || k == 12 || k == 21 || k == 22 || k == 23 || k == 29 || k == 30 || k == 31)){
+                cout << "\033[1;37m" << boardarray[j][k] << "\033[0m";
+            }
+            else if ( j == 2 && (k == 24 || k == 25 || k == 26 || k == 27 || k == 28 || k == 32 || k == 33 || k == 34 || k == 35 || k == 36 || k == 37 || k == 38 || k == 39 || k == 40)){
+                cout << "\033[1;39m" << boardarray[j][k] << "\033[0m";
+            }
+            else{
+                cout << boardarray[j][k];
+            }
         }
         cout << endl;
     }
@@ -1255,7 +1518,6 @@ void Game::updatepositions(){
         }
     }
 }
-
 
 void Game::checkgame(){
     /* Need to make a function that checks for game over... */
