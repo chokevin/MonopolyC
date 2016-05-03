@@ -26,6 +26,5 @@ Specific Highlights in the game class include the following
 
 * A GUI is currently in development with the QTGui library.
 * This game did not take into account when Players run out of money... This still needs to be developed. 
-* Also Did not account for buying and selling of houses. 
 * Need to work out how to mortgate properties as well. 
 
