@@ -50,7 +50,7 @@ int Property::getRent(){
         }
         else return rent*2;
     }
-    else return rent;
+    return rent;
 }
 
 int Property::getHouse(){
